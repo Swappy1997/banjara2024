@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BanjaraWorld</string>
+    <string name="otp_message">We\'ll need your phone number to send an OTP for verification</string>
+</resources>
