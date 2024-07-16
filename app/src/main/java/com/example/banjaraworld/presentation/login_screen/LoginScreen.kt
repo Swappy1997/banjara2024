@@ -1,5 +1,6 @@
 package com.example.banjaraworld.presentation.login_screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -85,6 +86,7 @@ fun LoginScreen(
             when (event) {
                 is LoginViewModel.ValidationEvent.Success -> {
                     Toast.makeText(context, "Successfully", Toast.LENGTH_SHORT).show()
+                    Log.d("TAG", "LoginScreen: ")
                 }
             }
         }
