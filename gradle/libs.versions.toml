@@ -10,15 +10,17 @@ activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 kspVersion = "1.9.0-1.0.13"
 hiltVersion = "2.51.1"
+material = "1.6.8"
 navigationRuntimeKtx = "2.8.0-beta04"
 navigationCompose = "2.8.0-beta04"
 coil = "2.6.0"
 hiltNavigationComposeVersion = "1.2.0"
-kotlinxSerializationJson = "1.7.1"
+kotlinxSerializationJson = "1.6.3"
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

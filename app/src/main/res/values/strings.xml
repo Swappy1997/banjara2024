@@ -1,4 +1,28 @@
 <resources>
     <string name="app_name">BanjaraWorld</string>
+    //loginScreen
+    <string name="enter_name">Please enter your name</string>
+    <string name="enter_mobile">Please enter your mobile number</string>
+    <string name="privacy_policy_text" translatable="false">privacy policy</string>
+    <string name="terms_and_condition_text" translatable="false">terms &amp; conditions</string>
+    <string name="terms_condition" translatable="false">I accept the privacy policy and the terms &amp; conditions of use</string>
     <string name="otp_message">We\'ll need your phone number to send an OTP for verification</string>
+
+    //otpScreen
+    <string name="otp_recived_msg">Please enter the code we just sent to</string>
+    <string name="verify">Verify</string>
+    <string name="continues">Continues</string>
+    <string name="home_screen">Home</string>
+    <string name="marriage_screen">Matrimony</string>
+    <string name="shopping_screen">Banjara Bazar</string>
+    <string name="profile_screen">Profile</string>
+
+    //sheet
+    <string name="register_to_explore">Register to Explore</string>
+    <string name="sheettittle">Unlock a World of Possibilities in Matrimony!</string>
+    <string name="sheetdes">Embark on a journey to find your perfect match. To explore our exclusive Matrimony features, kindly register and open the door to a realm of potential connections. Your soulmate could be just a click away!</string>
+    <string name="register_now">Register Now</string>
+    <string name="whats_your_name">What\'s your name ?</string>
+    <string name="lets_get_to_know_each_other">Let\'s get to know each other?</string>
+    <string name="enter_your_name">enter your name\n</string>
 </resources>

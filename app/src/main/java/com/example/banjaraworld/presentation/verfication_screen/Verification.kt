@@ -14,30 +14,28 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.ViewCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.banjaraworld.R
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.OtpInput
-import com.example.banjaraworld.presentation.login_screen.LoginFormEvent
-import com.example.banjaraworld.presentation.login_screen.LoginViewModel
-import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 
 @Composable
 fun VerficationScreen(
-    modifier: Modifier = Modifier,
-    verificationOtp: VerificationOtp = hiltViewModel()
+
+    verificationOtp: VerificationOtp = hiltViewModel(),
+    navigateToHomeScreen: () -> Unit
 ) {
 
     var state = verificationOtp.state
@@ -48,7 +46,8 @@ fun VerficationScreen(
         verificationOtp.validationEvents.collect { event ->
             when (event) {
                 is VerificationOtp.ValidationEvent -> {
-                    Toast.makeText(context, "Successfully", Toast.LENGTH_SHORT).show()
+                    navigateToHomeScreen.invoke()
+                    Toast.makeText(context, "Otp Verified", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -80,7 +79,7 @@ fun VerficationScreen(
 
             Spacer(Modifier.height(8.dp))
             CommonText(
-                text = "Please enter the code we just sent to\n +917720840636",
+                text = "${stringResource(R.string.otp_recived_msg)}\n +917720840636",
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
@@ -105,7 +104,7 @@ fun VerficationScreen(
                 )
             }
             Spacer(Modifier.weight(1f))
-            CommonButton("Verify", onClick = {
+            CommonButton(stringResource(R.string.verify), onClick = {
                 verificationOtp.OnEvent(VerificationOtpEvent.Verify)
             }, Modifier.padding(paddingValues))
 

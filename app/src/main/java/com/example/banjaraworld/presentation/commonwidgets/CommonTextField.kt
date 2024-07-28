@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 
@@ -33,13 +34,13 @@ fun CommonOutlineTextField(
     imeAction: ImeAction,
     onValueChange: (String) -> Unit = {},
     prefixName: String? = "",
-    keyboardActions: ()-> Unit={}
+    keyboardActions: () -> Unit = {}
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(4.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
+            .padding(BwDimensions.PADDING_4),
+        elevation = CardDefaults.cardElevation(BwDimensions.ELEVATION_HEIGHT),
 
         ) {
         TextField(
@@ -48,12 +49,12 @@ fun CommonOutlineTextField(
                 imeAction = imeAction
             ),
             keyboardActions = KeyboardActions(
-                onDone ={
+                onDone = {
                     keyboardActions()
                 }
             ),
             textStyle = MaterialTheme.typography.labelMedium.copy(
-                fontSize = 14.sp, color = Color(0xFF515151)
+                fontSize = BwDimensions.FONT_14, color = Color(0xFF515151)
             ),
             singleLine = true,
             value = value ?: "",
@@ -64,7 +65,7 @@ fun CommonOutlineTextField(
             placeholder = {
                 Text(
                     dummyText, style = MaterialTheme.typography.titleSmall.copy(
-                        fontSize = 14.sp, color = Color(0xFFC0CBD8)
+                        fontSize = BwDimensions.FONT_14, color = Color(0xFFC0CBD8)
                     ), textAlign = TextAlign.Center
                 )
             },
@@ -81,10 +82,10 @@ fun CommonOutlineTextField(
                 cursorColor = onSecondary,
             ),
 
-            shape = RoundedCornerShape(10.dp),
+            shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(55.dp),
+                .height(BwDimensions.TextFieldHeight),
         )
     }
 

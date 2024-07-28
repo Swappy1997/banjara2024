@@ -21,6 +21,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import androidx.navigation.compose.rememberNavController
+import com.example.banjaraworld.navigation.RootNavigationGraph
 import com.example.banjaraworld.presentation.login_screen.LoginScreen
 import com.example.banjaraworld.presentation.splash_screen.SplashScreen
 import com.example.banjaraworld.presentation.verfication_screen.VerficationScreen
@@ -35,10 +37,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
+            val navController = rememberNavController()
             BanjaraWorldTheme {
-                //SplashScreen()
-                LoginScreen()
-                //VerficationScreen()
+                //MainScreen()
+              //  HomeScreen()
+                RootNavigationGraph(navController)
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, inset ->

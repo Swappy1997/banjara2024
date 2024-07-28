@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BanjaraWorld</string>
+    <string name="enter_name">कृपया आपले नाव प्रविष्ट करा</string>
+    <string name="otp_message">पडताळणीसाठी OTP पाठवण्यासाठी आम्हाला तुमच्या फोन नंबरची आवश्यकता असेल</string>
+    <string name="enter_mobile">कृपया तुमचा मोबाईल नंबर भरा</string>
+    <string name="otp_recived_msg">कृपया आम्ही नुकताच पाठवलेला OTP कोड भरा</string>
+    <string name="verify">सत्यापित करा</string>
+    <string name="continues">चालू ठेवा</string>
+    <string name="home_screen">" मुख्य पृष्ठ"</string>
+    <string name="marriage_screen">विवाह</string>
+    <string name="shopping_screen">"बंजारा बाजार"</string>
+    <string name="profile_screen">प्रोफाइल</string>
+    <string name="sheettittle">"विवाहाच्या जगात शक्यतांचा दरवाजा उघडा!"</string>
+    <string name="sheetdes">तुमच्या परिपूर्ण जोडीदाराच्या शोधाचा प्रवास सुरू करा. आमच्या विशेष विवाह सुविधांचा शोध घेण्यासाठी, कृपया नोंदणी करा आणि संभाव्य नात्यांच्या जगाचे दरवाजे उघडा. तुमचा जीवसाथी फक्त एका क्लिकवर असू शकतो!</string>
+    <string name="register_to_explore">शोधण्यासाठी नोंदणी करा</string>
+    <string name="register_now">नोंदणी करा</string>
+    <string name="whats_your_name">What\'s your name ?</string>
+    <string name="lets_get_to_know_each_other">Let\'s get to know each other?</string>
+    <string name="enter_your_name">enter your name\n</string>
+</resources>

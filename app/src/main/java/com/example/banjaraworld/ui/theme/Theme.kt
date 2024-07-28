@@ -16,8 +16,8 @@ private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = Pink80,
-    background = Color(0xFFF2F2E1),
-    surface = Color(0xFFFFFBFE),
+    background = Color(0xFF000000),
+    surface = Color(0xFF000000),
     onPrimary = Color(0xFfF6890F),
     onSecondary = Color(0xFF051C41),
     onTertiary = Color(0xFFAD0605),
@@ -30,8 +30,8 @@ private val LightColorScheme = lightColorScheme(
     secondary = PurpleGrey40,
     tertiary = Pink40,
 
-    background = Color(0xFFF2F2E1),
-    surface = Color(0xFFFFFBFE),
+    background = Color(0xFFFDFCF0),
+    surface = Color(0xFFFDFCF0),
     onPrimary = Color(0xFfF6890F),
     onSecondary = Color(0xFF051C41),
     onTertiary = Color(0xFFAD0605),
@@ -44,7 +44,7 @@ private val LightColorScheme = lightColorScheme(
 fun BanjaraWorldTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
