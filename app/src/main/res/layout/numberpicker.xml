@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<NumberPicker xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/numberpicker"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:showDividers="none">
+
+
+</NumberPicker>

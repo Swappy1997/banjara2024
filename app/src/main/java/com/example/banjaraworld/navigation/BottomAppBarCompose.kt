@@ -1,26 +1,16 @@
 package com.example.banjaraworld.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,15 +25,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
 import com.example.banjaraworld.R
-import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.ui.theme.onPrimary
 
 
@@ -53,10 +40,10 @@ fun BottomAppBarCompose(navController: NavController) {
     val currentRoute = navBackStackEntry?.destination?.route
 
     val bottomNavigationItems = listOf(
-        Screen.HomeScreen,
-        Screen.ProfileScreen,
-        Screen.ShoppingScreen,
-        Screen.MarriageScreen
+        BottomBarScreen.HomeBottomBarScreen,
+        BottomBarScreen.ProfileBottomBarScreen,
+        BottomBarScreen.ShoppingBottomBarScreen,
+        BottomBarScreen.MarriageBottomBarScreen
     )
     val destination = bottomNavigationItems.any { it.route == currentRoute }
 
@@ -143,12 +130,12 @@ fun BottomAppBarCompose(navController: NavController) {
 }
 
 
-private fun getPopDestinationId(screen: Screen): Int {
+private fun getPopDestinationId(screen: BottomBarScreen): Int {
     return when (screen) {
-        Screen.HomeScreen -> R.string.home_screen
-        Screen.ProfileScreen -> R.string.profile_screen
-        Screen.ShoppingScreen -> R.string.shopping_screen
-        Screen.MarriageScreen -> R.string.marriage_screen
+        BottomBarScreen.HomeBottomBarScreen -> R.string.home_screen
+        BottomBarScreen.ProfileBottomBarScreen -> R.string.profile_screen
+        BottomBarScreen.ShoppingBottomBarScreen -> R.string.shopping_screen
+        BottomBarScreen.MarriageBottomBarScreen -> R.string.marriage_screen
         else -> R.string.home_screen // Default to home screen
     }
 }

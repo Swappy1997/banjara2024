@@ -8,24 +8,31 @@ import androidx.navigation.compose.composable
 import com.example.banjaraworld.presentation.HomeScreen
 import com.example.banjaraworld.presentation.ProfileScreen
 import com.example.banjaraworld.presentation.ShoppingScreen
+import com.example.banjaraworld.presentation.commonwidgets.MarriageSheet
 
 @Composable
-fun BottomNavigationGraph(
+fun MainScreenGraph(
     navController: NavHostController,
     paddingValues: PaddingValues
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.HomeScreen.route,
+        startDestination = BottomBarScreen.HomeBottomBarScreen.route,
+        route = Graph.MAIN
     ) {
-        composable(Screen.HomeScreen.route) {
+        composable(BottomBarScreen.HomeBottomBarScreen.route) {
             HomeScreen()
         }
-        composable(Screen.ProfileScreen.route) {
+        composable(BottomBarScreen.ProfileBottomBarScreen.route) {
             ProfileScreen()
         }
-        composable(Screen.ShoppingScreen.route) {
+        composable(BottomBarScreen.ShoppingBottomBarScreen.route) {
             ShoppingScreen()
+        }
+        composable(BottomBarScreen.MarriageBottomBarScreen.route) {
+            MarriageSheet {
+                navController.navigate(Graph.MARRIAGE)
+            }
         }
         marriageNavGraph(navController)
     }

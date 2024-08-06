@@ -34,7 +34,8 @@ fun CommonOutlineTextField(
     imeAction: ImeAction,
     onValueChange: (String) -> Unit = {},
     prefixName: String? = "",
-    keyboardActions: () -> Unit = {}
+    keyboardActions: () -> Unit = {},
+    readOnly:Boolean=false
 ) {
     Card(
         modifier = modifier
@@ -61,6 +62,7 @@ fun CommonOutlineTextField(
             onValueChange = {
                 onValueChange(it) // Pass the value to the provided lambda
             },
+            readOnly =readOnly ,
 
             placeholder = {
                 Text(

@@ -26,9 +26,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.banjaraworld.R
-import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.OtpInput
+import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
 import com.example.banjaraworld.ui.theme.onSecondary
 
 @Composable
@@ -104,7 +104,7 @@ fun VerficationScreen(
                 )
             }
             Spacer(Modifier.weight(1f))
-            CommonButton(stringResource(R.string.verify), onClick = {
+            RoundedButton(stringResource(R.string.verify), onClick = {
                 verificationOtp.OnEvent(VerificationOtpEvent.Verify)
             }, Modifier.padding(paddingValues))
 

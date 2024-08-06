@@ -10,11 +10,12 @@ import com.example.banjaraworld.presentation.MainScreen
 fun RootNavigationGraph(navHostController: NavHostController) {
     NavHost(
         navController = navHostController,
-        startDestination = Graph.AUTH
+        startDestination = Graph.AUTH,
+        route = Graph.ROOT
     ) {
         authNavGraph(navHostController)
         composable(route = Graph.MAIN) {
-            MainScreen(navController = navHostController)
+            MainScreen()
         }
     }
 }

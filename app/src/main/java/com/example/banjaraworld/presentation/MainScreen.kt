@@ -1,10 +1,22 @@
 package com.example.banjaraworld.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
@@ -12,8 +24,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.banjaraworld.navigation.AppBar
 import com.example.banjaraworld.navigation.BottomAppBarCompose
-import com.example.banjaraworld.navigation.BottomNavigationGraph
+import com.example.banjaraworld.navigation.BottomBarScreen
 import com.example.banjaraworld.navigation.Graph
+import com.example.banjaraworld.navigation.MainScreenGraph
+import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
 import com.example.banjaraworld.ui.theme.background
 import kotlinx.coroutines.launch
 
@@ -40,20 +54,21 @@ fun MainScreen(
         }
     }
 
-    val showAppBar = !isMarriageFlowRoute(currentRoute)
+    val showAppbar = listOf(
+        BottomBarScreen.HomeBottomBarScreen,
+        BottomBarScreen.ProfileBottomBarScreen,
+        BottomBarScreen.ShoppingBottomBarScreen,
+    )
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(background)
-    ) {
+    val destination = showAppbar.any { it.route == currentRoute }
+    BanjaraWorldTheme {
         Scaffold(
             modifier = Modifier
                 .fillMaxSize()
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
                 .navigationBarsPadding(),
             topBar = {
-                if (showAppBar) {
+                if (destination) {
                     AppBar(
                         firstName = "Swapnil",
                         onNavigationIconClick = {
@@ -71,8 +86,15 @@ fun MainScreen(
                 BottomAppBarCompose(navController = navController)
             }
         ) { paddingValues ->
-
-            BottomNavigationGraph(navController = navController, paddingValues)
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .navigationBarsPadding()
+                    .background(color = background)
+            ) {
+                MainScreenGraph(navController = navController, paddingValues)
+            }
         }
     }
 }

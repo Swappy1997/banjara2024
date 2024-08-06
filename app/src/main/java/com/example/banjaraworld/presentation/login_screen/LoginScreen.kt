@@ -1,9 +1,11 @@
 package com.example.banjaraworld.presentation.login_screen
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +18,6 @@ import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
@@ -48,28 +49,25 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.example.banjaraworld.R
-import com.example.banjaraworld.common.rememberImeState
 import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.common.utils.Utils
 import com.example.banjaraworld.navigation.AuthScreen
 import com.example.banjaraworld.presentation.SetBarStatus
-import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonOutlineTextField
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.ConnectivityStatusBox
 import com.example.banjaraworld.presentation.commonwidgets.HyperlinkText
-import com.example.banjaraworld.ui.theme.background
+import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 import com.example.banjaraworld.ui.theme.surface
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -80,6 +78,11 @@ fun LoginScreen(
 ) {
 
     val networkStatus = loginViewModel.networkStatus.collectAsState().value
+    val sendOtpState = loginViewModel.sendOtpState
+
+    LaunchedEffect(sendOtpState) {
+        Log.d("TAG", "LoginScreen: ${sendOtpState.value}")
+    }
     SetBarStatus(surface)
     val state = loginViewModel.state
     val context = LocalContext.current
@@ -93,7 +96,7 @@ fun LoginScreen(
             when (event) {
                 is LoginViewModel.ValidationEvent.Success -> {
                     navController.navigate(AuthScreen.Otp.route)
-                    Utils.showToast("please enter otp",context)
+                    Utils.showToast("please enter otp", context)
                 }
             }
         }
@@ -114,12 +117,22 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center
         ) {
             ConnectivityStatus(networkStatus.isConnected)
-            AsyncImage(
-                model = R.drawable.logo,
-                contentDescription = "logo",
-                modifier = Modifier
-                    .width(BwDimensions.ImageWidth)
-            )
+
+            AnimatedVisibility(
+                visible = true,
+                enter = fadeIn(animationSpec = tween(durationMillis = 1000)),
+                exit = fadeOut(animationSpec = tween(durationMillis = 1000))
+            ) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(R.drawable.logo)
+                        .build(),
+                    contentDescription = "logo",
+                    modifier = Modifier
+                        .width(300.dp) // Adjust the width as needed
+                )
+            }
+
             Spacer(Modifier.height(BwDimensions.SPACING_24))
             CommonText(
                 text = "Login",
@@ -132,7 +145,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
             CommonText(
                 text = stringResource(R.string.otp_message),
-                fontSize = BwDimensions.FONT_8,
+                fontSize = BwDimensions.FONT_10,
                 fontWeight = FontWeight.Light,
                 color = onSecondary,
                 textAlign = TextAlign.Center,
@@ -145,7 +158,6 @@ fun LoginScreen(
                 onValueChange = {
                     loginViewModel.onEvent(LoginFormEvent.MobileChanged(it))
                 },
-
                 value = state.mobileNumber,
                 prefixName = "+91",
                 modifier = Modifier.onFocusEvent { evnt ->
@@ -153,25 +165,28 @@ fun LoginScreen(
                         scope.launch {
                             bringIntoViewRequester.bringIntoView()
                         }
-
                     }
                 },
                 imeAction = ImeAction.Done,
             )
-            if (state.mobileNumberError != null) {
-                CommonText(
-                    text = state.mobileNumberError,
-                    fontSize = BwDimensions.FONT_12,
-                    fontWeight = FontWeight.Light,
-                    textAlign = TextAlign.Start,
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = BwDimensions.PADDING_10)
-                )
+            AnimatedVisibility(
+                visible = state.mobileNumberError != null,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                state.mobileNumberError?.let {
+                    CommonText(
+                        text = it,
+                        fontSize = BwDimensions.FONT_12,
+                        fontWeight = FontWeight.Light,
+                        textAlign = TextAlign.Start,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = BwDimensions.PADDING_10)
+                    )
+                }
             }
-            Spacer(Modifier.height(BwDimensions.PADDING_8))
-
             CommonOutlineTextField(
                 dummyText = stringResource(R.string.enter_name),
                 keyboardType = KeyboardType.Text,
@@ -184,23 +199,28 @@ fun LoginScreen(
                         scope.launch {
                             bringIntoViewRequester.bringIntoView()
                         }
-
                     }
                 },
                 imeAction = ImeAction.Done,
                 keyboardActions = { focusManager.clearFocus() }
             )
-            if (state.firstNameError != null) {
-                CommonText(
-                    text = state.firstNameError,
-                    fontSize = BwDimensions.FONT_12,
-                    fontWeight = FontWeight.Light,
-                    textAlign = TextAlign.Start,
-                    color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = BwDimensions.PADDING_10)
-                )
+            AnimatedVisibility(
+                visible = state.firstNameError != null,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                state.firstNameError?.let {
+                    CommonText(
+                        text = it,
+                        fontSize = BwDimensions.FONT_12,
+                        fontWeight = FontWeight.Light,
+                        textAlign = TextAlign.Start,
+                        color = MaterialTheme.colorScheme.error,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = BwDimensions.PADDING_10)
+                    )
+                }
             }
             Spacer(Modifier.weight(1f))
             Row(
@@ -232,7 +252,11 @@ fun LoginScreen(
                     }
                 )
             }
-            if (!state.checkBox) {
+            AnimatedVisibility(
+                visible = !state.checkBox && state.checkBoxError != null,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
                 state.checkBoxError?.let {
                     CommonText(
                         text = it,
@@ -247,8 +271,8 @@ fun LoginScreen(
                 }
             }
             Spacer(Modifier.height(BwDimensions.SPACING_10))
-            CommonButton(
-                text = stringResource(R.string.continues) ,
+            RoundedButton(
+                text = stringResource(R.string.continues),
                 onClick = {
                     loginViewModel.onEvent(LoginFormEvent.Continue)
                 },
@@ -256,10 +280,8 @@ fun LoginScreen(
                     .bringIntoViewRequester(bringIntoViewRequester)
                     .padding(paddingValues)
             )
-
         }
     }
-
 }
 
 @Composable
@@ -283,5 +305,6 @@ fun ConnectivityStatus(isConnected: Boolean) {
 }
 
 
-
-
+sealed class ValidationEvent {
+    object Success : ValidationEvent()
+}

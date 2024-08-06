@@ -24,5 +24,11 @@
     <string name="register_now">Register Now</string>
     <string name="whats_your_name">What\'s your name ?</string>
     <string name="lets_get_to_know_each_other">Let\'s get to know each other?</string>
+
+    //marriage registration
     <string name="enter_your_name">enter your name\n</string>
+    <string name="enter_your_middle_name">enter your middle name\n</string>
+    <string name="enter_your_last_name">enter your last name\n</string>
+    <string name="enter_your_mother_name">enter your mother\'s  name\n</string>
+
 </resources>
