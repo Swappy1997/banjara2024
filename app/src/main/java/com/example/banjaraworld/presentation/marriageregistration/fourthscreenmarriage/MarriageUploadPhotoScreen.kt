@@ -1,8 +1,9 @@
-package com.example.banjaraworld.presentation.marriageregistration
+package com.example.banjaraworld.presentation.marriageregistration.fourthscreenmarriage
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,8 +15,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,15 +30,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.banjaraworld.R
+import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
+import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
 import com.example.banjaraworld.ui.theme.background
+import com.example.banjaraworld.ui.theme.onPrimary
 
 @Composable
 fun MarriageUploadPhotoScreen(modifier: Modifier = Modifier, onContinueClick: () -> Unit) {
+
     var imageUri1 by remember { mutableStateOf<Uri?>(null) }
     var imageUri2 by remember { mutableStateOf<Uri?>(null) }
     var imageUri3 by remember { mutableStateOf<Uri?>(null) }
@@ -52,10 +60,10 @@ fun MarriageUploadPhotoScreen(modifier: Modifier = Modifier, onContinueClick: ()
             }
         }
     }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(background)
             .statusBarsPadding()
             .padding(16.dp),
@@ -79,33 +87,50 @@ fun MarriageUploadPhotoScreen(modifier: Modifier = Modifier, onContinueClick: ()
             containerColor = Color.DarkGray
         )
         Spacer(modifier = Modifier.weight(1f))
+        CommonButton(
+            onClick = { onContinueClick.invoke() }, text = stringResource(R.string.continues)
+        )
     }
-    CommonButton(onClick = { onContinueClick.invoke() }, text = stringResource(R.string.continues))
 }
 
 
 @Composable
 fun ImageContainer(imageUri: Uri?, onClick: () -> Unit, containerColor: Color) {
-    Box(
+
+    Card(
         modifier = Modifier
-            .size(120.dp)
-            .background(containerColor)
-            .clickable { onClick() },
-        contentAlignment = Alignment.Center
+            .size(300.dp),
+        border = BorderStroke(BwDimensions.ELEVATION_HEIGHT, onPrimary),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
     ) {
-        imageUri?.let {
-            Image(
-                painter = rememberAsyncImagePainter(model = it),
-                contentDescription = null,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        } ?: run {
-            Text(
-                text = "Upload Image",
-                color = Color.White,
-                style = MaterialTheme.typography.titleMedium
-            )
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable { onClick() },
+            contentAlignment = Alignment.Center
+        ) {
+            imageUri?.let {
+                Image(
+                    painter = rememberAsyncImagePainter(model = it),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Inside
+                )
+            } ?: run {
+                CommonText(
+                    text = "Upload Image",
+                    fontSize = BwDimensions.FONT_12,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium,
+                    modifier = Modifier
+                )
+
+            }
         }
     }
 }
+
+
+

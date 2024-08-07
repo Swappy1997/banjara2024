@@ -58,11 +58,11 @@ import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.common.utils.Utils
 import com.example.banjaraworld.navigation.AuthScreen
 import com.example.banjaraworld.presentation.SetBarStatus
+import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonOutlineTextField
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.ConnectivityStatusBox
 import com.example.banjaraworld.presentation.commonwidgets.HyperlinkText
-import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 import com.example.banjaraworld.ui.theme.surface
@@ -271,7 +271,7 @@ fun LoginScreen(
                 }
             }
             Spacer(Modifier.height(BwDimensions.SPACING_10))
-            RoundedButton(
+            CommonButton(
                 text = stringResource(R.string.continues),
                 onClick = {
                     loginViewModel.onEvent(LoginFormEvent.Continue)

@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
+import com.example.banjaraworld.ui.theme.PoppinsFont
 
 
 @Composable
@@ -36,6 +37,7 @@ fun CommonText(
             overflow = overflow,
             modifier = textModifier,
             textAlign = textAlign,
+            fontFamily = PoppinsFont
         )
     }
 }

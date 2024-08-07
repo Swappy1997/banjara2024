@@ -1,16 +1,13 @@
-package com.example.banjaraworld.presentation.marriageregistration
+package com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.banjaraworld.domain.usecases.marriageregistration.ValidateIsGenderSelectedUseCase
-import com.example.banjaraworld.domain.usecases.marriageregistration.ValidateIsMarriageStatusSelectedUseCase
-import com.example.banjaraworld.domain.usecases.marriageregistration.ValidateIsProfileCreatedForUseCase
-import com.example.banjaraworld.presentation.login_screen.LoginViewModel.ValidationEvent
-import com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage.MarriageFirstScreenEvent
-import com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage.MarriageFirstScreenState
+import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsGenderSelectedUseCase
+import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsMarriageStatusSelectedUseCase
+import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsProfileCreatedForUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow

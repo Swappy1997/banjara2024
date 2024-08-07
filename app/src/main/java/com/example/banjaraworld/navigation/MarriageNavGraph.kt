@@ -6,12 +6,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.banjaraworld.presentation.marriageregistration.MarriageHeightScreen
-import com.example.banjaraworld.presentation.marriageregistration.MarriageStateAndCityScreen
-import com.example.banjaraworld.presentation.marriageregistration.MarriageUploadPhotoScreen
 import com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage.MarriageRegistrationGenderScreen
-import com.example.banjaraworld.presentation.marriageregistration.marrigenames.MarriageRegistrationUserNameScreen
-import com.example.banjaraworld.presentation.marriageregistration.userbirthandtime.UserBirthDateAndTime
+import com.example.banjaraworld.presentation.marriageregistration.fourthscreenmarriage.MarriageUploadPhotoScreen
+import com.example.banjaraworld.presentation.marriageregistration.secondscreenmarriage.MarriageRegistrationUserNameScreen
+import com.example.banjaraworld.presentation.marriageregistration.seventh.MarriageHeightScreen
+import com.example.banjaraworld.presentation.marriageregistration.sixthmarriagescreen.UserBirthDateAndTime
+import com.example.banjaraworld.presentation.marriageregistration.thirdscreenmarriage.MarriageStateAndCityScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
 fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
@@ -29,7 +29,7 @@ fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
 //            MarriageAgeScreen()
         }
         composable(MarriageScreen.MarriageRegistrationHeightScreen.route) {
-            MarriageHeightScreen(oncontinueClick = {
+            MarriageHeightScreen(onContinueClick = {
                 navController.navigate(MarriageScreen.MarriageRegistrationStateAndCityScreen.route)
             })
         }

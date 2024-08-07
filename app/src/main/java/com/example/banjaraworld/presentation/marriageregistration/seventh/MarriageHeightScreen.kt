@@ -1,9 +1,8 @@
-package com.example.banjaraworld.presentation.marriageregistration
+package com.example.banjaraworld.presentation.marriageregistration.seventh
 
 import NumberPickerWithSuffix
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,10 +10,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,15 +30,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
+import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
-import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
 import com.example.banjaraworld.ui.theme.onPrimary
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun MarriageHeightScreen(modifier: Modifier = Modifier, oncontinueClick: () -> Unit) {
+fun MarriageHeightScreen(
+    modifier: Modifier = Modifier,
+    oncontinueClick: () -> Unit,
+    marriageHeightScreenViewmodel: MarriageHeightScreenViewmodel
+) {
 
     var selectedUnit by remember { mutableStateOf("cm") }
 
@@ -55,7 +60,8 @@ fun MarriageHeightScreen(modifier: Modifier = Modifier, oncontinueClick: () -> U
     BanjaraWorldTheme {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(BwDimensions.PADDING_8),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             LinearDeterminateIndicator(progressValue = 0.4f)
@@ -104,13 +110,14 @@ fun MarriageHeightScreen(modifier: Modifier = Modifier, oncontinueClick: () -> U
                     )
                 }
             }
+            Spacer(modifier = Modifier.height(BwDimensions.SPACING_24))
             SwitchCmToInch(selectedUnit = selectedUnit, onUnitChange = { unit ->
                 selectedUnit = unit
                 // Convert the selectedValue if needed
                 // You might want to scale or adjust the value based on the unit change
             })
             Spacer(modifier = Modifier.weight(1f))
-            RoundedButton(
+            CommonButton(
                 modifier = Modifier.navigationBarsPadding(),
                 text = stringResource(id = R.string.continues),
                 onClick = { oncontinueClick.invoke() })
@@ -125,26 +132,42 @@ fun SwitchCmToInch(
 ) {
     Row(
         modifier = modifier
-            .border(
-                width = 1.dp, color = Color.Gray, shape = RoundedCornerShape(8.dp)
-            )
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(text = "cm",
-            fontSize = 16.sp,
-            color = if (selectedUnit == "cm") onPrimary else Color.Gray,
-            fontWeight = if (selectedUnit == "cm") FontWeight.Bold else FontWeight.Medium,
-            modifier = Modifier.clickable {
-                onUnitChange("cm")
-            })
-        Text(text = "inch",
-            fontSize = 16.sp,
-            color = if (selectedUnit == "inch") onPrimary else Color.Gray,
-            fontWeight = if (selectedUnit == "inch") FontWeight.Bold else FontWeight.Medium,
-            modifier = Modifier.clickable {
-                onUnitChange("inch")
-            })
+
+        SuggestionChip(onClick = { /*TODO*/ }, label = {
+            Text(text = "cm",
+                fontSize = 16.sp,
+                color = if (selectedUnit == "cm") Color.Black else Color.Gray,
+                fontWeight = if (selectedUnit == "cm") FontWeight.Bold else FontWeight.Medium,
+                modifier = Modifier.clickable {
+                    onUnitChange("cm")
+                })
+        },
+            colors = if (selectedUnit == "cm") AssistChipDefaults.assistChipColors(
+                containerColor = onPrimary
+            ) else AssistChipDefaults.assistChipColors(containerColor = Color.White),
+            border = null,
+            elevation = AssistChipDefaults.assistChipElevation(elevation = BwDimensions.ELEVATION_HEIGHT)
+        )
+
+        SuggestionChip(onClick = { /*TODO*/ }, label = {
+            Text(text = "inch",
+                fontSize = 16.sp,
+                color = if (selectedUnit == "inch") Color.Black else Color.Gray,
+                fontWeight = if (selectedUnit == "inch") FontWeight.Bold else FontWeight.Medium,
+                modifier = Modifier.clickable {
+                    onUnitChange("inch")
+                })
+        },
+            colors = if (selectedUnit == "inch") AssistChipDefaults.assistChipColors(
+                containerColor = onPrimary
+            ) else AssistChipDefaults.assistChipColors(containerColor = Color.White),
+            border = null,
+            elevation = AssistChipDefaults.assistChipElevation(elevation = BwDimensions.ELEVATION_HEIGHT)
+        )
+
     }
 }

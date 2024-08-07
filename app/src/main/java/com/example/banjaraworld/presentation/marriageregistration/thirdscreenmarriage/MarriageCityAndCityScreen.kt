@@ -1,4 +1,4 @@
-package com.example.banjaraworld.presentation.marriageregistration
+package com.example.banjaraworld.presentation.marriageregistration.thirdscreenmarriage
 
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -29,6 +29,7 @@ import com.example.banjaraworld.presentation.commonwidgets.CommonOutlineTextFiel
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
 import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
+import com.example.banjaraworld.presentation.marriageregistration.MarriageRegistrationViewmodel
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
 
 @Composable

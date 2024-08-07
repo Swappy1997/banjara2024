@@ -31,13 +31,13 @@ fun NumberPickerWithSuffix(
         numberPicker.maxValue = range.last
         numberPicker.value = selectedValue
 
-        numberPicker.textSize = 48f
+        numberPicker.textSize = 80f
 
         numberPicker.setOnValueChangedListener { _, _, new ->
             onValueChange(new)
         }
-        numberPicker.dividerPadding = 16
-
+        numberPicker.dividerPadding = 50
+        numberPicker.selectionDividerHeight = 10
         numberPicker
     },
         update = { numberPicker ->

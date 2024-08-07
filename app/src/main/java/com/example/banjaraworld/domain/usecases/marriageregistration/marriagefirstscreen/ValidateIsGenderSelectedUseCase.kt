@@ -1,4 +1,4 @@
-package com.example.banjaraworld.domain.usecases.marriageregistration
+package com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen
 
 import com.example.banjaraworld.domain.usecases.ValidationResult
 import javax.inject.Inject

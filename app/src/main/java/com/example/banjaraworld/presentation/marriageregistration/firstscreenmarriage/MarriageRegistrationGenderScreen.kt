@@ -38,8 +38,8 @@ import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
 import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
-import com.example.banjaraworld.presentation.marriageregistration.MarriageFirstScreenViewmodel
 import com.example.banjaraworld.ui.theme.onPrimary
+import com.example.banjaraworld.ui.theme.onSecondary
 
 @OptIn(ExperimentalLayoutApi::class)
 @Preview(showBackground = true, showSystemUi = true)
@@ -62,7 +62,8 @@ fun MarriageRegistrationGenderScreen(
     }
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(BwDimensions.PADDING_8),
         verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_8)
     ) {
         LinearDeterminateIndicator(progressValue = 0.1f)
@@ -71,7 +72,7 @@ fun MarriageRegistrationGenderScreen(
             text = "What is your gender?",
             fontSize = BwDimensions.FONT_16,
             color = Color.Black,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             modifier = Modifier
         )
         Row(
@@ -89,14 +90,18 @@ fun MarriageRegistrationGenderScreen(
                 label = {
                     CommonText(
                         text = "Male",
-                        fontSize = BwDimensions.FONT_16,
+                        fontSize = BwDimensions.FONT_12,
                         color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                     )
                 },
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.Boy, contentDescription = "male")
+                    Icon(
+                        imageVector = Icons.Default.Boy,
+                        contentDescription = "male",
+                        tint = onSecondary
+                    )
                 },
                 colors = if (state.isGenderSelected == "male") AssistChipDefaults.assistChipColors(
                     containerColor = onPrimary
@@ -113,14 +118,18 @@ fun MarriageRegistrationGenderScreen(
                 label = {
                     CommonText(
                         text = "Female",
-                        fontSize = BwDimensions.FONT_16,
+                        fontSize = BwDimensions.FONT_12,
                         color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
                     )
                 },
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.Girl, contentDescription = "female")
+                    Icon(
+                        imageVector = Icons.Default.Girl,
+                        contentDescription = "female",
+                        tint = onSecondary
+                    )
                 },
                 colors = if (state.isGenderSelected == "female") AssistChipDefaults.assistChipColors(
                     containerColor = onPrimary
@@ -153,7 +162,7 @@ fun MarriageRegistrationGenderScreen(
             text = "What is your marital status ?",
             fontSize = BwDimensions.FONT_16,
             color = Color.Black,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             modifier = Modifier
         )
 
@@ -176,7 +185,7 @@ fun MarriageRegistrationGenderScreen(
                     label = {
                         CommonText(
                             text = it,
-                            fontSize = BwDimensions.FONT_16,
+                            fontSize = BwDimensions.FONT_12,
                             color = Color.Black,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier
@@ -215,7 +224,7 @@ fun MarriageRegistrationGenderScreen(
             text = "Profile created for ?",
             fontSize = BwDimensions.FONT_16,
             color = Color.Black,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Medium,
             modifier = Modifier
         )
         FlowRow(
@@ -236,7 +245,7 @@ fun MarriageRegistrationGenderScreen(
                     label = {
                         CommonText(
                             text = it,
-                            fontSize = BwDimensions.FONT_16,
+                            fontSize = BwDimensions.FONT_12,
                             color = Color.Black,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier

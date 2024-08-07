@@ -103,6 +103,7 @@ dependencies {
 
 //    implementation (libs.numberpicker)
 
+    implementation(libs.easycrop)
 
     //implementation (libs.androidx.lifecycle.viewmodel.compose)
 
