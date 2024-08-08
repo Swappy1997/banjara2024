@@ -1,14 +1,11 @@
 package com.example.banjaraworld.presentation.marriageregistration.sixthmarriagescreen
 
 import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
@@ -32,7 +29,6 @@ import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.DatePickerWithDialog
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
-import com.example.banjaraworld.ui.theme.background
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 
@@ -48,9 +44,6 @@ fun UserBirthDateAndTime(modifier: Modifier = Modifier, onContiueClick: () -> Un
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(background)
-            .statusBarsPadding()
-            .navigationBarsPadding()
             .padding(BwDimensions.PADDING_8),
         horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_5)
@@ -60,7 +53,7 @@ fun UserBirthDateAndTime(modifier: Modifier = Modifier, onContiueClick: () -> Un
             text = "What is your birth date",
             color = Color.Black,
             textAlign = TextAlign.Center,
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
         )
@@ -71,7 +64,7 @@ fun UserBirthDateAndTime(modifier: Modifier = Modifier, onContiueClick: () -> Un
                     text = birthDate,
                     color = onPrimary,
                     textAlign = TextAlign.Center,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier
                 )
@@ -84,7 +77,7 @@ fun UserBirthDateAndTime(modifier: Modifier = Modifier, onContiueClick: () -> Un
             text = "What is your birth time",
             color = Color.Black,
             textAlign = TextAlign.Center,
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
         )
@@ -96,7 +89,7 @@ fun UserBirthDateAndTime(modifier: Modifier = Modifier, onContiueClick: () -> Un
                     birthTime,
                     color = onPrimary,
                     textAlign = TextAlign.Center,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier
                 )

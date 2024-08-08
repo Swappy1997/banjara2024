@@ -5,7 +5,6 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -38,7 +36,6 @@ import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
-import com.example.banjaraworld.ui.theme.background
 import com.example.banjaraworld.ui.theme.onPrimary
 
 @Composable
@@ -64,13 +61,11 @@ fun MarriageUploadPhotoScreen(modifier: Modifier = Modifier, onContinueClick: ()
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(background)
-            .statusBarsPadding()
-            .padding(16.dp),
+            .padding(BwDimensions.PADDING_8),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        LinearDeterminateIndicator(0.2f)
+        LinearDeterminateIndicator(0.6f)
         ImageContainer(
             imageUri = imageUri1,
             onClick = { pickImageLauncher.launch("image/*") },
@@ -121,7 +116,7 @@ fun ImageContainer(imageUri: Uri?, onClick: () -> Unit, containerColor: Color) {
             } ?: run {
                 CommonText(
                     text = "Upload Image",
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     color = Color.Black,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier

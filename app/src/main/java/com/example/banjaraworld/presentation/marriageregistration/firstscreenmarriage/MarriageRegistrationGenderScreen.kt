@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
+import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
-import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 
@@ -70,7 +70,7 @@ fun MarriageRegistrationGenderScreen(
         Spacer(modifier = Modifier.height(BwDimensions.SPACING_12))
         CommonText(
             text = "What is your gender?",
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             color = Color.Black,
             fontWeight = FontWeight.Medium,
             modifier = Modifier
@@ -90,7 +90,7 @@ fun MarriageRegistrationGenderScreen(
                 label = {
                     CommonText(
                         text = "Male",
-                        fontSize = BwDimensions.FONT_12,
+                        fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                         color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
@@ -118,7 +118,7 @@ fun MarriageRegistrationGenderScreen(
                 label = {
                     CommonText(
                         text = "Female",
-                        fontSize = BwDimensions.FONT_12,
+                        fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                         color = Color.Black,
                         fontWeight = FontWeight.Medium,
                         modifier = Modifier
@@ -147,7 +147,7 @@ fun MarriageRegistrationGenderScreen(
 
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -160,7 +160,7 @@ fun MarriageRegistrationGenderScreen(
         Spacer(modifier = Modifier.height(BwDimensions.SPACING_8))
         CommonText(
             text = "What is your marital status ?",
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             color = Color.Black,
             fontWeight = FontWeight.Medium,
             modifier = Modifier
@@ -185,7 +185,7 @@ fun MarriageRegistrationGenderScreen(
                     label = {
                         CommonText(
                             text = it,
-                            fontSize = BwDimensions.FONT_12,
+                            fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                             color = Color.Black,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier
@@ -207,7 +207,7 @@ fun MarriageRegistrationGenderScreen(
             state.isMarriageStatusSelectedError?.let {
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -222,7 +222,7 @@ fun MarriageRegistrationGenderScreen(
             listOf("Son", "Daughter", "sister", "Brother", "Friend", "Myself")
         CommonText(
             text = "Profile created for ?",
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             color = Color.Black,
             fontWeight = FontWeight.Medium,
             modifier = Modifier
@@ -245,7 +245,7 @@ fun MarriageRegistrationGenderScreen(
                     label = {
                         CommonText(
                             text = it,
-                            fontSize = BwDimensions.FONT_12,
+                            fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                             color = Color.Black,
                             fontWeight = FontWeight.Medium,
                             modifier = Modifier
@@ -267,7 +267,7 @@ fun MarriageRegistrationGenderScreen(
             state.isProfileCreatedForSelectedError?.let {
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -278,7 +278,7 @@ fun MarriageRegistrationGenderScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        RoundedButton(
+        CommonButton(
             text = stringResource(id = R.string.continues),
             onClick = { marriageFirstScreenViewmodel.onEvent(MarriageFirstScreenEvent.Continue) },
             modifier = Modifier.fillMaxWidth()

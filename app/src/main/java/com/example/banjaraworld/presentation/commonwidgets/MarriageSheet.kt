@@ -70,8 +70,7 @@ fun MarriageSheet(onClick: () -> Unit) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Icon(
-                    imageVector = Icons.Outlined.Close,
+                Icon(imageVector = Icons.Outlined.Close,
                     contentDescription = null,
                     tint = Color.Gray,
                     modifier = Modifier
@@ -86,8 +85,7 @@ fun MarriageSheet(onClick: () -> Unit) {
                                         showBottomSheet = false
                                     }
                                 }
-                        }
-                )
+                        })
                 Text(
                     text = stringResource(R.string.register_to_explore),
                     textAlign = TextAlign.Center,
@@ -105,7 +103,7 @@ fun MarriageSheet(onClick: () -> Unit) {
 
                 Text(
                     text = stringResource(R.string.sheettittle),
-                    fontSize = BwDimensions.FONT_16,
+                    fontSize = BwDimensions.TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
                 )
@@ -115,11 +113,12 @@ fun MarriageSheet(onClick: () -> Unit) {
                     text = stringResource(id = R.string.sheetdes),
                     fontSize = BwDimensions.FONT_10,
                     fontWeight = FontWeight.Light,
-                    textAlign = TextAlign.Center, lineHeight = 18.sp
+                    textAlign = TextAlign.Center,
+                    lineHeight = 18.sp
                 )
                 Spacer(modifier = Modifier.padding(top = 8.dp))
 
-                RoundedButton(text = stringResource(R.string.register_now), onClick = {
+                CommonButton(text = stringResource(R.string.register_now), onClick = {
                     scope.launch {
                         onClick.invoke()
                         showBottomSheet = false
@@ -147,10 +146,7 @@ fun TimerPickerDilog(
         initialMinute = currentTime.get(Calendar.MINUTE),
         is24Hour = true,
     )
-    TimePickerDialog(
-        onDismiss = { onDismiss() },
-        onConfirm = { onConfirm(timePickerState) }
-    ) {
+    TimePickerDialog(onDismiss = { onDismiss() }, onConfirm = { onConfirm(timePickerState) }) {
         TimePicker(
             state = timePickerState,
         )
@@ -160,24 +156,17 @@ fun TimerPickerDilog(
 
 @Composable
 fun TimePickerDialog(
-    onDismiss: () -> Unit,
-    onConfirm: () -> Unit,
-    content: @Composable () -> Unit
+    onDismiss: () -> Unit, onConfirm: () -> Unit, content: @Composable () -> Unit
 ) {
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        dismissButton = {
-            TextButton(onClick = { onDismiss() }) {
-                Text("Dismiss")
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = { onConfirm() }) {
-                Text("OK")
-            }
-        },
-        text = { content() }
-    )
+    AlertDialog(onDismissRequest = onDismiss, dismissButton = {
+        TextButton(onClick = { onDismiss() }) {
+            Text("Dismiss")
+        }
+    }, confirmButton = {
+        TextButton(onClick = { onConfirm() }) {
+            Text("OK")
+        }
+    }, text = { content() })
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -185,7 +174,6 @@ fun TimePickerDialog(
 fun MyTIme(modifier: Modifier = Modifier) {
 
     FlowRow(modifier = Modifier.fillMaxSize(), maxItemsInEachRow = Int.MAX_VALUE) {
-        Column(modifier = Modifier.fillMaxSize()) {
-        }
+        Column(modifier = Modifier.fillMaxSize()) {}
     }
 }

@@ -53,7 +53,7 @@ fun RoundedButton(
         ) {
             CommonText(
                 text = text,
-                fontSize = BwDimensions.FONT_16,
+                fontSize = BwDimensions.TITTLE_FONT_SIZE,
                 color = Color.White,
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier

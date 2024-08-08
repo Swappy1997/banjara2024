@@ -12,7 +12,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -24,10 +23,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
+import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonOutlineTextField
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
-import com.example.banjaraworld.presentation.commonwidgets.RoundedButton
 
 @Composable
 fun MarriageRegistrationUserNameScreen(
@@ -54,24 +53,21 @@ fun MarriageRegistrationUserNameScreen(
             .fillMaxSize()
             .padding(BwDimensions.PADDING_8)
             .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_5),
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_8),
 
-    ) {
-        LinearDeterminateIndicator(0.1f)
+        ) {
+        LinearDeterminateIndicator(0.2f)
         CommonText(
             stringResource(R.string.whats_your_name),
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
             color = Color.Black,
             modifier = Modifier.fillMaxWidth()
         )
         CommonText(
             stringResource(R.string.lets_get_to_know_each_other),
-            fontSize = BwDimensions.FONT_16,
+            fontSize = BwDimensions.TITTLE_FONT_SIZE,
             fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
             color = Color.Black,
             modifier = Modifier.fillMaxWidth()
         )
@@ -93,7 +89,7 @@ fun MarriageRegistrationUserNameScreen(
 
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -121,7 +117,7 @@ fun MarriageRegistrationUserNameScreen(
 
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -150,7 +146,7 @@ fun MarriageRegistrationUserNameScreen(
 
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -179,7 +175,7 @@ fun MarriageRegistrationUserNameScreen(
 
                 CommonText(
                     text = it,
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Light,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.error,
@@ -191,7 +187,7 @@ fun MarriageRegistrationUserNameScreen(
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        RoundedButton(
+        CommonButton(
             stringResource(R.string.continues),
             onClick = { marriageSecondScreenViewModel.onEvent(MarriageSecondScreenEvent.Continue) },
             modifier = modifier.fillMaxWidth()

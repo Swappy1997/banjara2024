@@ -6,6 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.example.banjaraworld.presentation.commonwidgets.MarriageSheet
+import com.example.banjaraworld.presentation.marriageregistration.fifthscreenmarraige.MarriageOccupationAndEducationScreen
 import com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage.MarriageRegistrationGenderScreen
 import com.example.banjaraworld.presentation.marriageregistration.fourthscreenmarriage.MarriageUploadPhotoScreen
 import com.example.banjaraworld.presentation.marriageregistration.secondscreenmarriage.MarriageRegistrationUserNameScreen
@@ -16,74 +18,61 @@ import com.example.banjaraworld.presentation.marriageregistration.thirdscreenmar
 @RequiresApi(Build.VERSION_CODES.Q)
 fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.MARRIAGE,
-        startDestination = MarriageScreen.MarriageRegistrationGenderScreen.route
+        route = Graph.MARRIAGE, startDestination = MarriageScreen.M_R_First_Screen.route
     ) {
 
-        composable(MarriageScreen.MarriageRegistrationNameScreen.route) {
-            MarriageRegistrationUserNameScreen(onContinueClick = {
-                navController.navigate(MarriageScreen.MarriageRegistrationPhotoUploadScreen.route)
+        composable(MarriageScreen.Marriage.route) {
+            MarriageSheet {
+                navController.navigate(MarriageScreen.M_R_First_Screen.route)
+            }
+
+        }
+        composable(MarriageScreen.M_R_First_Screen.route) {
+            MarriageRegistrationGenderScreen(onContinue = {
+                navController.navigate(MarriageScreen.M_R_Second_Screen.route)
             })
-        }
-        composable(MarriageScreen.MarriageRegistrationAgeScreen.route) {
-//            MarriageAgeScreen()
-        }
-        composable(MarriageScreen.MarriageRegistrationHeightScreen.route) {
-            MarriageHeightScreen(onContinueClick = {
-                navController.navigate(MarriageScreen.MarriageRegistrationStateAndCityScreen.route)
-            })
-        }
-        composable(MarriageScreen.MarriageRegistrationStateAndCityScreen.route) {
-            MarriageStateAndCityScreen()
-        }
-        composable(MarriageScreen.MarriageRegistrationPhotoUploadScreen.route) {
-            MarriageUploadPhotoScreen(onContinueClick = {
-                navController.navigate(MarriageScreen.MarriageUserBirthDateAndTimeScreen.route)
-            })
-        }
-        composable(MarriageScreen.MarriageUserBirthDateAndTimeScreen.route) {
-            UserBirthDateAndTime(onContiueClick = {
-                navController.navigate(MarriageScreen.MarriageRegistrationHeightScreen.route)
-            })
-        }
-        composable(MarriageScreen.MarriageRegistrationGenderScreen.route) {
-            MarriageRegistrationGenderScreen(
-                onContinue = {
-                    navController.navigate(MarriageScreen.MarriageRegistrationNameScreen.route)
-                }
-            )
         }
 
+        composable(MarriageScreen.M_R_Second_Screen.route) {
+            MarriageRegistrationUserNameScreen(onContinueClick = {
+                navController.navigate(MarriageScreen.M_R_Third_Screen.route)
+            })
+        }
+        composable(MarriageScreen.M_R_Third_Screen.route) {
+            UserBirthDateAndTime(onContiueClick = {
+                navController.navigate(MarriageScreen.M_R_Fourth_Screen.route)
+            })
+        }
+        composable(MarriageScreen.M_R_Fourth_Screen.route) {
+            MarriageHeightScreen(onContinueClick = {
+                navController.navigate(MarriageScreen.M_R_Fifth_Screen.route)
+            })
+        }
+        composable(MarriageScreen.M_R_Fifth_Screen.route) {
+            MarriageStateAndCityScreen(onContinueClick = {
+                navController.navigate(MarriageScreen.M_R_Sixth_Screen.route)
+            })
+        }
+        composable(MarriageScreen.M_R_Sixth_Screen.route) {
+            MarriageUploadPhotoScreen(onContinueClick = {
+                navController.navigate(MarriageScreen.M_R_Seventh_Screen.route)
+            })
+        }
+        composable(MarriageScreen.M_R_Seventh_Screen.route) {
+            MarriageOccupationAndEducationScreen()
+        }
     }
 }
 
 sealed class MarriageScreen(val route: String) {
 
     object Marriage : MarriageScreen("marriage_screen")
-    object MarriageRegistrationNameScreen : MarriageScreen("marriage_registration_screen")
-    object MarriageRegistrationAgeScreen : MarriageScreen("marriage_registration_age_screen")
-    object MarriageRegistrationHeightScreen : MarriageScreen("marriage_registration_height_screen")
-    object MarriageRegistrationStateAndCityScreen :
-        MarriageScreen("marriage_registration_state_and_city_screen")
-
-    object MarriageRegistrationMaritalStatusScreen :
-        MarriageScreen("marriage_registration_marital_status_screen")
-
-    object MarriageRegistrationEducationScreen :
-        MarriageScreen("marriage_registration_education_screen")
-
-    object MarriageRegistrationOccupationScreen :
-        MarriageScreen("marriage_registration_occupation_screen")
-
-    object MarriageRegistrationIncomeScreen : MarriageScreen("marriage_registration_income_screen")
-    object MarriageRegistrationPhotoUploadScreen :
-        MarriageScreen("marriage_registration_photo_upload_screen")
-
-    object MarriageStateAndCityScreen : MarriageScreen("marriage_state_and_city_screen")
-
-    object MarriageUserBirthDateAndTimeScreen :
-        MarriageScreen("marriage_user_birth_date_and_time_screen")
-
-    object MarriageRegistrationGenderScreen : MarriageScreen("marriage_registration_gender_screen")
+    object M_R_First_Screen : MarriageScreen("m_r_gender_screen")
+    object M_R_Second_Screen : MarriageScreen("m_r_screen")
+    object M_R_Third_Screen : MarriageScreen("m_r_birth_screen")
+    object M_R_Fourth_Screen : MarriageScreen("m_r_height_screen")
+    object M_R_Fifth_Screen : MarriageScreen("m_r_state_and_city_screen")
+    object M_R_Sixth_Screen : MarriageScreen("m_r_photo_upload_screen")
+    object M_R_Seventh_Screen : MarriageScreen("m_r_occupation_and_education_screen")
 
 }

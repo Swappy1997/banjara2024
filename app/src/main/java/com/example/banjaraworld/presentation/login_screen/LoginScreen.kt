@@ -177,7 +177,7 @@ fun LoginScreen(
                 state.mobileNumberError?.let {
                     CommonText(
                         text = it,
-                        fontSize = BwDimensions.FONT_12,
+                        fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                         fontWeight = FontWeight.Light,
                         textAlign = TextAlign.Start,
                         color = MaterialTheme.colorScheme.error,
@@ -212,7 +212,7 @@ fun LoginScreen(
                 state.firstNameError?.let {
                     CommonText(
                         text = it,
-                        fontSize = BwDimensions.FONT_12,
+                        fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                         fontWeight = FontWeight.Light,
                         textAlign = TextAlign.Start,
                         color = MaterialTheme.colorScheme.error,
@@ -242,7 +242,7 @@ fun LoginScreen(
                     modifier = Modifier.weight(1f),
                     fullText = stringResource(R.string.terms_condition),
                     linkText = listOf("privacy policy", "terms & conditions"),
-                    fontSize = BwDimensions.FONT_12,
+                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                     hyperlinks = listOf(
                         "http://18.118.3.109/privacy_policy.html",
                         "http://18.118.3.109/term_and_conditions.html"
@@ -260,7 +260,7 @@ fun LoginScreen(
                 state.checkBoxError?.let {
                     CommonText(
                         text = it,
-                        fontSize = BwDimensions.FONT_12,
+                        fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
                         fontWeight = FontWeight.Light,
                         textAlign = TextAlign.Start,
                         color = MaterialTheme.colorScheme.error,
