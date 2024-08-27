@@ -25,4 +25,5 @@ object Graph {
     const val AUTH = "auth_graph"
     const val MAIN = "main_graph"
     const val MARRIAGE = "marriage_graph"
+    const val SHOP = "shop_graph"
 }

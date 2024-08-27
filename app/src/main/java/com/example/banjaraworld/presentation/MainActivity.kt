@@ -19,6 +19,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.compose.rememberNavController
 import com.example.banjaraworld.navigation.RootNavigationGraph
+import com.example.banjaraworld.navigation.ShoppingScreens
+import com.example.banjaraworld.presentation.shopping.ShoppingDetails
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,9 +37,12 @@ class MainActivity : ComponentActivity() {
             BanjaraWorldTheme {
                 //MarriageRegistrationGenderScreen()
                 //MarriageStateAndCityScreen()
-              //  RootNavigationGraph(navController)
+              //RootNavigationGraph(navController)
+                ShoppingDetails {
+
+                }
                 //MarriageHeightScreen(oncontinueClick = {})
-                ShoppingScreen()
+                //ShoppingScreen(onclick = {navController.navigate(ShoppingScreens.ShoppingDetail.route)})
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, inset ->

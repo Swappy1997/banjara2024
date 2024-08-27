@@ -1,5 +1,7 @@
 package com.example.banjaraworld.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -10,6 +12,7 @@ import com.example.banjaraworld.presentation.ProfileScreen
 import com.example.banjaraworld.presentation.ShoppingScreen
 import com.example.banjaraworld.presentation.commonwidgets.MarriageSheet
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun MainScreenGraph(
     navController: NavHostController,
@@ -27,7 +30,7 @@ fun MainScreenGraph(
             ProfileScreen()
         }
         composable(BottomBarScreen.ShoppingBottomBarScreen.route) {
-            ShoppingScreen()
+            ShoppingScreen(onclick = {navController.navigate(Graph.SHOP)})
         }
         composable(BottomBarScreen.MarriageBottomBarScreen.route) {
             MarriageSheet {
@@ -35,5 +38,6 @@ fun MainScreenGraph(
             }
         }
         marriageNavGraph(navController)
+        shoppingNavGraph(navController)
     }
 }

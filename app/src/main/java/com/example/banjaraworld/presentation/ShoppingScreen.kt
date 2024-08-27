@@ -23,22 +23,20 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.StarHalf
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.filled.StarHalf
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,7 +61,7 @@ import com.example.banjaraworld.ui.theme.onPrimary
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingScreen(modifier: Modifier = Modifier) {
+fun ShoppingScreen(modifier: Modifier = Modifier, onclick: () -> Unit) {
     val cartCount = remember { mutableStateOf(0) } // Use `by` for state delegation
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val scrollState = rememberLazyGridState()
@@ -110,7 +108,12 @@ fun ShoppingScreen(modifier: Modifier = Modifier) {
             CategoryRow(categories = categories, selectedIndex = selectedCategoryIndex) { index ->
                 selectedCategoryIndex = index
             }
-            ProductGrid(products = productList, scrollBehavior = scrollBehavior, scrollState)
+            ProductGrid(
+                products = productList,
+                scrollBehavior = scrollBehavior,
+                scrollState,
+                onclick
+            )
         }
     }
 }
@@ -171,7 +174,10 @@ fun CategoryRow(categories: List<Category>, selectedIndex: Int, onCategoryClick:
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductGrid(
-    products: List<Product>, scrollBehavior: TopAppBarScrollBehavior, scrollState: LazyGridState
+    products: List<Product>,
+    scrollBehavior: TopAppBarScrollBehavior,
+    scrollState: LazyGridState,
+    onclick: () -> Unit
 ) {
     LazyVerticalGrid(columns = GridCells.Fixed(2),
         modifier = Modifier
@@ -180,13 +186,13 @@ fun ProductGrid(
         state = scrollState,
         content = {
             items(products.size) { index ->
-                ProductItem(product = products[index])
+                ProductItem(product = products[index], onclick)
             }
         })
 }
 
 @Composable
-fun ProductItem(product: Product) {
+fun ProductItem(product: Product, onclick: () -> Unit) {
     var isLiked by remember { mutableStateOf(false) }
 
     Column(
@@ -206,6 +212,11 @@ fun ProductItem(product: Product) {
                         1.dp,
                         shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
                         color = Color.LightGray
+                    )
+                    .clickable(
+                        onClick = { onclick.invoke() },
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
                     )
             )
             Card(
@@ -335,5 +346,8 @@ fun StarRating(
 }
 
 
+@Stable
 data class Product(val name: String, val price: Double, val imageUrl: Int)
+
+@Stable
 data class Category(val name: String, val imageUrl: Int)
