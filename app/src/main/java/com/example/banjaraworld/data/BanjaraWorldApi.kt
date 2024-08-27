@@ -12,4 +12,6 @@ interface BanjaraWorldApi {
 
     @POST("customer/sendOtp")
     suspend fun sendOtp(@Body sendOtpRequest: SendOtpRequest): SendOtpResponse
+
+
 }

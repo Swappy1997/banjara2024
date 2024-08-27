@@ -56,8 +56,6 @@ fun MainScreen(
 
     val showAppbar = listOf(
         BottomBarScreen.HomeBottomBarScreen,
-        BottomBarScreen.ProfileBottomBarScreen,
-        BottomBarScreen.ShoppingBottomBarScreen,
     )
 
     val destination = showAppbar.any { it.route == currentRoute }

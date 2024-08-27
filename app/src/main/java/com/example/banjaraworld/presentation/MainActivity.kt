@@ -1,3 +1,4 @@
+
 package com.example.banjaraworld.presentation
 
 import android.app.Activity
@@ -34,8 +35,9 @@ class MainActivity : ComponentActivity() {
             BanjaraWorldTheme {
                 //MarriageRegistrationGenderScreen()
                 //MarriageStateAndCityScreen()
-                RootNavigationGraph(navController)
+              //  RootNavigationGraph(navController)
                 //MarriageHeightScreen(oncontinueClick = {})
+                ShoppingScreen()
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, inset ->

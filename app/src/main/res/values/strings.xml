@@ -30,5 +30,7 @@
     <string name="enter_your_middle_name">enter your middle name\n</string>
     <string name="enter_your_last_name">enter your last name\n</string>
     <string name="enter_your_mother_name">enter your mother\'s  name\n</string>
+    <string name="banjara_bazar">Banjara Bazar</string>
+    <string name="price_format">₹%1$.2f</string>
 
 </resources>

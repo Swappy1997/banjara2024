@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import com.example.banjaraworld.ui.theme.PoppinsFont
@@ -21,7 +22,8 @@ fun CommonText(
     overflow: TextOverflow? = TextOverflow.Visible,
     onClick: (() -> Unit)? = null,
     textAlign: TextAlign = TextAlign.Center,
-    modifier: Modifier
+    modifier: Modifier,
+    textDecoration: TextDecoration=TextDecoration.None
 ) {
     val textModifier = if (onClick != null) {
         modifier.clickable { onClick.invoke() }
@@ -37,7 +39,7 @@ fun CommonText(
             overflow = overflow,
             modifier = textModifier,
             textAlign = textAlign,
-            fontFamily = PoppinsFont
+            fontFamily = PoppinsFont, textDecoration = textDecoration
         )
     }
 }
