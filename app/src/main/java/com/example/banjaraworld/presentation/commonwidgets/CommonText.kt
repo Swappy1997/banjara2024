@@ -22,9 +22,9 @@ fun CommonText(
     overflow: TextOverflow? = TextOverflow.Visible,
     onClick: (() -> Unit)? = null,
     textAlign: TextAlign = TextAlign.Center,
-    modifier: Modifier,
-    textDecoration: TextDecoration=TextDecoration.None,
-    maxline:Int=1
+    modifier: Modifier = Modifier,
+    textDecoration: TextDecoration = TextDecoration.None,
+    maxline: Int = 1
 ) {
     val textModifier = if (onClick != null) {
         modifier.clickable { onClick.invoke() }
@@ -40,7 +40,11 @@ fun CommonText(
             overflow = overflow,
             modifier = textModifier,
             textAlign = textAlign,
-            fontFamily = PoppinsFont, textDecoration = textDecoration,maxLines = maxline
+            fontFamily = PoppinsFont,
+            textDecoration = textDecoration,
+            maxLines = maxline,
+            lineHeight = TextUnit.Unspecified,
+
         )
     }
 }

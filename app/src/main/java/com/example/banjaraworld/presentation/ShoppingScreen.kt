@@ -103,7 +103,8 @@ fun ShoppingScreen(modifier: Modifier = Modifier, onclick: () -> Unit) {
                 onBackClick = { /* TODO */ },
                 cartCount = cartCount,
                 scrollBehavior = scrollBehavior,
-                scrollState = scrollState
+                scrollState = scrollState,
+                onFavoriteClick = {}
             )
             CategoryRow(categories = categories, selectedIndex = selectedCategoryIndex) { index ->
                 selectedCategoryIndex = index

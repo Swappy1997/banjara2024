@@ -1,10 +1,14 @@
 package com.example.banjaraworld.navigation
 
+import android.content.Intent
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.banjaraworld.presentation.ShoppingScreen
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
+import com.example.banjaraworld.presentation.shopping.ShoppingBagScreen
 import com.example.banjaraworld.presentation.shopping.ShoppingDetails
 
 fun NavGraphBuilder.shoppingNavGraph(
@@ -13,8 +17,24 @@ fun NavGraphBuilder.shoppingNavGraph(
     navigation(
         route = Graph.SHOP, startDestination = ShoppingScreens.ShoppingDetail.route
     ) {
-        composable(route = ShoppingScreens.ShoppingDetail.route) {
-            ShoppingDetails(onclick = { navController.navigate(ShoppingScreens.ShoppingCart.route) })
+        composable(
+            route = ShoppingScreens.ShoppingDetail.route, deepLinks = listOf(navDeepLink {
+                uriPattern = "http://banjara.com/shopping_detail/{id}"
+                action = Intent.ACTION_VIEW
+            }),
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+                defaultValue = -1
+            })
+        ) {
+            ShoppingDetails(
+                onclick = { navController.navigate(ShoppingScreens.ShoppingCart.route) },
+                onAddtoBagClick = {
+                    navController.navigate(ShoppingScreens.ShoppingCart.route)
+                })
+        }
+        composable(route = ShoppingScreens.ShoppingCart.route) {
+            ShoppingBagScreen()
         }
 
     }

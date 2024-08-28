@@ -1,5 +1,6 @@
 package com.example.banjaraworld.presentation.shopping
 
+import android.content.Intent
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -10,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerState
@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.ShoppingBag
@@ -38,9 +39,9 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
@@ -49,20 +50,22 @@ import coil.compose.AsyncImage
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.presentation.Product
-import com.example.banjaraworld.presentation.ProductItem
 import com.example.banjaraworld.presentation.StarRating
 import com.example.banjaraworld.presentation.commonwidgets.CommonAppBar
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
-import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
 import com.example.banjaraworld.ui.theme.background
 import com.example.banjaraworld.ui.theme.darkGreen
-import com.example.banjaraworld.ui.theme.onBackground
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingDetails(modifier: Modifier = Modifier, onclick: () -> Unit) {
+fun ShoppingDetails(
+    modifier: Modifier = Modifier,
+    link: String? = null,
+    onclick: () -> Unit,
+    onAddtoBagClick: () -> Unit
+) {
 
     val images = listOf(R.drawable.sheet, R.drawable.sheet, R.drawable.sheet)
     val pagerState = rememberPagerState(pageCount = { images.size })
@@ -114,7 +117,14 @@ fun ShoppingDetails(modifier: Modifier = Modifier, onclick: () -> Unit) {
 
             }
         }
-        ShareLikeAndCartCard()
+
+        ShareLikeAndCartCard(
+            productPrice = "222",
+            productLink = "http://www.banjaraworld.com/22",
+            productName = "Banjara T shirt",
+            onAddtoBagClick = onAddtoBagClick
+        )
+
     }
 }
 
@@ -201,7 +211,6 @@ fun SimilarProductItem(product: Product, onClick: () -> Unit) {
             fontWeight = FontWeight.Normal,
             modifier = Modifier.width(150.dp),
             overflow = TextOverflow.Ellipsis,
-            textAlign = TextAlign.Start
         )
 
         Row(
@@ -256,7 +265,27 @@ fun SimilarProductItem(product: Product, onClick: () -> Unit) {
 
 
 @Composable
-fun ShareLikeAndCartCard() {
+fun ShareLikeAndCartCard(
+    productName: String,
+    productPrice: String,
+    productLink: String?,
+    onAddtoBagClick: () -> Unit
+) {
+    val context = LocalContext.current
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+    if (showBottomSheet) {
+        OpenItemSizeSheet(
+            showBottomSheet = true,
+            onDismissRequest = { showBottomSheet = false },
+            onAddToBagClick = onAddtoBagClick,
+            onSizeSelected = {
+                showBottomSheet = false
+            }
+        )
+    }
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -269,7 +298,6 @@ fun ShareLikeAndCartCard() {
             ),
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
-
         shape = RectangleShape
     ) {
         Row(
@@ -280,7 +308,19 @@ fun ShareLikeAndCartCard() {
             horizontalArrangement = Arrangement.Absolute.SpaceEvenly
         ) {
             IconButton(
-                onClick = { /*TODO*/ }, modifier = Modifier
+                onClick = {
+                    // Share functionality
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(
+                            Intent.EXTRA_TEXT,
+                            "Check out this product: $productName\nPrice: $productPrice\n$productLink"
+                        )
+                        type = "text/plain"
+                    }
+                    context.startActivity(Intent.createChooser(shareIntent, "Share Product"))
+                },
+                modifier = Modifier
                     .size(20.dp)
                     .background(
                         color = background,
@@ -311,7 +351,9 @@ fun ShareLikeAndCartCard() {
             Button(
                 modifier = Modifier,
                 shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
-                onClick = { /*TODO*/ },
+                onClick = {
+                    showBottomSheet = true
+                },
                 colors = ButtonDefaults.buttonColors(containerColor = onSecondary)
             ) {
                 Icon(
@@ -333,6 +375,114 @@ fun ShareLikeAndCartCard() {
 
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OpenItemSizeSheet(
+    showBottomSheet: Boolean,
+    onDismissRequest: () -> Unit,
+    onSizeSelected: (String) -> Unit,
+    onAddToBagClick: () -> Unit
+) {
+    if (showBottomSheet) {
+        SizeSelectionBottomSheet(
+            onSizeSelected = onSizeSelected,
+            onDismissRequest = onDismissRequest,
+            onAddToBagClick = onAddToBagClick
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SizeSelectionBottomSheet(
+    onSizeSelected: (String) -> Unit,
+    onDismissRequest: () -> Unit,
+    sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
+    onAddToBagClick: () -> Unit,
+) {
+    ModalBottomSheet(
+        shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
+        containerColor = Color.White,
+        onDismissRequest = { onDismissRequest() },
+        sheetState = sheetState
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ) {
+            // Cross Icon for Dismiss
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = BwDimensions.PADDING_8),
+                contentAlignment = Alignment.TopEnd
+            ) {
+                IconButton(
+                    onClick = { onDismissRequest() },
+                    modifier = Modifier
+                        .size(24.dp)
+                        .background(
+                            color = Color.Transparent,
+                            shape = RoundedCornerShape(50)
+                        )
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Close,
+                        contentDescription = "Close",
+                        tint = Color.Gray
+                    )
+                }
+            }
+
+            // Title Text
+            Text(
+                text = "Select Size",
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.Bold
+                ),
+                modifier = Modifier.padding(start = 8.dp)
+            )
+
+            // Size options (assuming SizeCard() is defined elsewhere)
+            SizeCard()
+
+            // Add to Bag Button
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 10.dp),
+                shape = RectangleShape,
+                colors = CardDefaults.cardColors(containerColor = Color.White)
+            ) {
+                Button(
+                    onClick = {
+                        onDismissRequest()
+                        onAddToBagClick()
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = BwDimensions.PADDING_12),
+                    shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
+                    colors = ButtonDefaults.buttonColors(containerColor = onSecondary)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.ShoppingBag,
+                        contentDescription = "Bag",
+                        tint = Color.White
+                    )
+                    CommonText(
+                        text = "Add To Bag",
+                        fontSize = BwDimensions.FONT_11,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier
+                    )
+                }
+            }
+        }
+    }
+}
+
 
 @Composable
 fun RatingDetail() {
@@ -504,7 +654,7 @@ fun DeliveryAddressDetail() {
 
 @Composable
 fun SizeCard() {
-    val sizeList = listOf("Xs", "S", "M", "L", "XL")
+    val sizeList = listOf("XS", "S", "M", "L", "XL")
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -752,7 +902,7 @@ fun ShoppingAppBar(cartCount: MutableState<Int>, scrollState: LazyGridState) {
         onCartClick = { /*TODO*/ },
         onBackClick = { /*TODO*/ },
         cartCount = cartCount,
-        scrollState = scrollState
+        scrollState = scrollState, onFavoriteClick = {}
     )
 }
 

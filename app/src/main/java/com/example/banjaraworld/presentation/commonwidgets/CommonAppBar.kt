@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -27,7 +29,12 @@ fun CommonAppBar(
     text: String,
     onCartClick: () -> Unit,
     onBackClick: () -> Unit,
-    cartCount: State<Int>?,
+    onFavoriteClick: () -> Unit,
+    cartCount: State<Int>? = null,
+    isFavorite: Boolean = false,
+    showCartIcon: Boolean = true,
+    showSearchIcon: Boolean = true,
+    showFavoriteIcon: Boolean = true,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     scrollState: LazyGridState
 ) {
@@ -48,32 +55,47 @@ fun CommonAppBar(
         ),
         navigationIcon = {
             IconButton(onClick = { onBackClick() }) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
             }
         },
         actions = {
-            Icon(imageVector = Icons.Default.Search, contentDescription = "search")
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp) // Adjust as needed
-                    .clickable { onCartClick() } // Add click functionality if needed
-            ) {
-                Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "cart")
-                if ((cartCount?.value ?: 0) > 0) {
-                    CommonText(
-                        text = "${cartCount?.value ?: 0}",
-                        fontSize = BwDimensions.FONT_11,
-                        color = onPrimary,
-                        fontWeight = FontWeight.Medium,
-                        modifier = Modifier
-                            .align(Alignment.TopEnd) // Adjust position if needed
-                            .padding(start = 8.dp)
+            if (showSearchIcon) {
+                IconButton(onClick = { /* Implement search functionality here */ }) {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
+                }
+            }
+
+            if (showFavoriteIcon) {
+                IconButton(onClick = { onFavoriteClick() }) {
+                    Icon(
+                        imageVector = if (isFavorite) Icons.Default.FavoriteBorder else Icons.Outlined.FavoriteBorder,
+                        contentDescription = "Favorite",
                     )
                 }
             }
 
+            if (showCartIcon) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clickable { onCartClick() }
+                ) {
+                    Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
+                    if ((cartCount?.value ?: 0) > 0) {
+                        CommonText(
+                            text = "${cartCount?.value ?: 0}",
+                            fontSize = BwDimensions.FONT_11,
+                            color = onPrimary,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .padding(start = 8.dp)
+                        )
+                    }
+                }
+            }
         },
-
         scrollBehavior = scrollBehavior,
     )
 }

@@ -20,6 +20,7 @@ import androidx.core.view.updatePadding
 import androidx.navigation.compose.rememberNavController
 import com.example.banjaraworld.navigation.RootNavigationGraph
 import com.example.banjaraworld.navigation.ShoppingScreens
+import com.example.banjaraworld.presentation.shopping.ShoppingBagScreen
 import com.example.banjaraworld.presentation.shopping.ShoppingDetails
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +38,8 @@ class MainActivity : ComponentActivity() {
             BanjaraWorldTheme {
                 //MarriageRegistrationGenderScreen()
                 //MarriageStateAndCityScreen()
-              RootNavigationGraph(navController)
+              //RootNavigationGraph(navController)
+            ShoppingBagScreen()
                // ShoppingDetails {
 
                 //}
