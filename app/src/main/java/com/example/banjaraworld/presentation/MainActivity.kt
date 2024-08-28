@@ -37,10 +37,10 @@ class MainActivity : ComponentActivity() {
             BanjaraWorldTheme {
                 //MarriageRegistrationGenderScreen()
                 //MarriageStateAndCityScreen()
-              //RootNavigationGraph(navController)
-                ShoppingDetails {
+              RootNavigationGraph(navController)
+               // ShoppingDetails {
 
-                }
+                //}
                 //MarriageHeightScreen(oncontinueClick = {})
                 //ShoppingScreen(onclick = {navController.navigate(ShoppingScreens.ShoppingDetail.route)})
             }

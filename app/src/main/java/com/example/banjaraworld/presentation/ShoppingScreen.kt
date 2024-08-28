@@ -108,12 +108,7 @@ fun ShoppingScreen(modifier: Modifier = Modifier, onclick: () -> Unit) {
             CategoryRow(categories = categories, selectedIndex = selectedCategoryIndex) { index ->
                 selectedCategoryIndex = index
             }
-            ProductGrid(
-                products = productList,
-                scrollBehavior = scrollBehavior,
-                scrollState,
-                onclick
-            )
+            ProductGrid(products = productList, scrollBehavior = scrollBehavior, scrollState,onclick)
         }
     }
 }
@@ -186,7 +181,7 @@ fun ProductGrid(
         state = scrollState,
         content = {
             items(products.size) { index ->
-                ProductItem(product = products[index], onclick)
+                ProductItem(product = products[index],onclick)
             }
         })
 }
@@ -214,7 +209,7 @@ fun ProductItem(product: Product, onclick: () -> Unit) {
                         color = Color.LightGray
                     )
                     .clickable(
-                        onClick = { onclick.invoke() },
+                        onClick = { onclick() },
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     )

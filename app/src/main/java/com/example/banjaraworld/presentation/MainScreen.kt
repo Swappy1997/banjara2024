@@ -87,7 +87,6 @@ fun MainScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
                     .navigationBarsPadding()
                     .background(color = background)
             ) {
