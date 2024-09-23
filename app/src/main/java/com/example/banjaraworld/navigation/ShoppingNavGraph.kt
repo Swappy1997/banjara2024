@@ -8,8 +8,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.example.banjaraworld.presentation.shopping.ApplyCouponCodeScreen
 import com.example.banjaraworld.presentation.shopping.ShoppingBagScreen
 import com.example.banjaraworld.presentation.shopping.ShoppingDetails
+import com.example.banjaraworld.presentation.shopping.WishListScreen
 
 fun NavGraphBuilder.shoppingNavGraph(
     navController: NavHostController,
@@ -31,12 +33,29 @@ fun NavGraphBuilder.shoppingNavGraph(
                 onclick = { navController.navigate(ShoppingScreens.ShoppingCart.route) },
                 onAddtoBagClick = {
                     navController.navigate(ShoppingScreens.ShoppingCart.route)
+                },
+                goToWishlist = {
+                    navController.navigate(ShoppingScreens.ShoppingWishlist.route)
                 })
         }
         composable(route = ShoppingScreens.ShoppingCart.route) {
-            ShoppingBagScreen()
+            ShoppingBagScreen(
+                goToWishlist = {
+                    navController.navigate(ShoppingScreens.ShoppingWishlist.route)
+                },
+                goToApplyCouponCode={
+                    navController.navigate(ShoppingScreens.ApplyCouponCode.route)
+                }
+            )
         }
 
+        composable(route = ShoppingScreens.ShoppingWishlist.route) {
+            WishListScreen()
+        }
+
+        composable(route = ShoppingScreens.ApplyCouponCode.route) {
+            ApplyCouponCodeScreen()
+        }
     }
 
 }
@@ -61,5 +80,5 @@ sealed class ShoppingScreens(val route: String) {
     object FemaleShoppingScreen : ShoppingScreens("female_shopping_screen")
     object KidsShoppingScreen : ShoppingScreens("kids_shopping_screen")
     object BanjaraBazarShoppingScreen : ShoppingScreens("banjara_bazar_shopping_screen")
-
+    object ApplyCouponCode : ShoppingScreens("apply_coupon_code")
 }

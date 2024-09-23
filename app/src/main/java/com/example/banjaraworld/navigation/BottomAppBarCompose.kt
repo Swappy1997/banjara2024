@@ -25,6 +25,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -50,12 +51,15 @@ fun BottomAppBarCompose(navController: NavController) {
     var selectedItem by remember { mutableStateOf(bottomNavigationItems.first()) }
     if (destination) {
 
-        Card(modifier = Modifier.fillMaxWidth(), elevation = CardDefaults.cardElevation(5.dp)) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            elevation = CardDefaults.cardElevation(5.dp),
+            shape = RectangleShape
+        ) {
             BottomAppBar(
                 modifier = Modifier
                     .height(60.dp)
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp))
 
                     .drawWithContent {
                         drawContent()

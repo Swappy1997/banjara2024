@@ -1,5 +1,6 @@
 package com.example.banjaraworld.presentation.shopping
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -31,7 +32,11 @@ import com.example.banjaraworld.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingBagScreen(modifier: Modifier = Modifier) {
+fun ShoppingBagScreen(
+    modifier: Modifier = Modifier,
+    goToWishlist: () -> Unit,
+    goToApplyCouponCode: () -> Unit
+) {
     val scrollState = rememberLazyGridState()
 
     Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.BottomCenter) {
@@ -43,13 +48,13 @@ fun ShoppingBagScreen(modifier: Modifier = Modifier) {
                 showSearchIcon = false,
                 onCartClick = { /* TODO */ },
                 onBackClick = { /* TODO */ },
-                onFavoriteClick = { /* TODO */ },
+                onFavoriteClick = { goToWishlist() },
                 scrollState = scrollState
             )
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 120.dp)
+                    .padding(bottom = 120.dp),
             ) {
                 item { DefultAddressCard() }
                 item {
@@ -61,10 +66,10 @@ fun ShoppingBagScreen(modifier: Modifier = Modifier) {
                     BagItemCard()
                 }
                 item {
-                    CouponCodeCard()
+                    CouponCodeCard(goToApplyCouponCode)
                 }
                 item {
-                    OrderDetailsCard()
+                    OrderDetailsCard(goToApplyCouponCode)
                 }
                 item {
                     ReturnAndRefundCard()
@@ -159,7 +164,7 @@ fun ReturnAndRefundCard() {
 }
 
 @Composable
-fun OrderDetailsCard() {
+fun OrderDetailsCard(goToApplyCouponCode: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -181,7 +186,11 @@ fun OrderDetailsCard() {
             // Table-like view
             OrderDetailItem(label = "Bag Total", value = "Rs 3333")
             OrderDetailItem(label = "Bag Saving", value = " -Rs 555", color = darkGreen)
-            OrderDetailItem(label = "Coupon Saving", value = "Apply Coupon", color = onPrimary)
+            OrderDetailItem(
+                label = "Coupon Saving",
+                value = "Apply Coupon",
+                color = onPrimary,
+                onClick = goToApplyCouponCode)
             OrderDetailItem(label = "Delivery Fee", value = "Free", color = darkGreen)
             OrderDetailItem(label = "Platform Fee", value = "Rs 28")
             OrderDetailItem(
@@ -198,7 +207,8 @@ fun OrderDetailItem(
     label: String,
     value: String,
     fontWeight: FontWeight = FontWeight.Normal,
-    color: Color = Color.Black
+    color: Color = Color.Black,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = Modifier
@@ -217,13 +227,16 @@ fun OrderDetailItem(
             text = value,
             fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
             color = color,
-            fontWeight = fontWeight
+            fontWeight = fontWeight,
+            modifier = Modifier.clickable {
+                onClick()
+            }
         )
     }
 }
 
 @Composable
-fun CouponCodeCard() {
+fun CouponCodeCard(goToApplyCouponCode: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -250,7 +263,10 @@ fun CouponCodeCard() {
                 text = "Select",
                 fontSize = BwDimensions.FONT_11,
                 color = onPrimary,
-                fontWeight = FontWeight.Medium, textDecoration = TextDecoration.Underline
+                fontWeight = FontWeight.Medium, textDecoration = TextDecoration.Underline,
+                modifier = Modifier.clickable {
+                    goToApplyCouponCode()
+                }
             )
 
         }

@@ -1,5 +1,7 @@
 package com.example.banjaraworld.presentation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +37,7 @@ fun isMarriageFlowRoute(currentRoute: String?): Boolean {
     return currentRoute?.startsWith(Graph.MARRIAGE) == true
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(

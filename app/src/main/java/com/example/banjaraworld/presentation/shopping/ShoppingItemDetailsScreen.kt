@@ -51,6 +51,7 @@ import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
 import com.example.banjaraworld.presentation.Product
 import com.example.banjaraworld.presentation.StarRating
+import com.example.banjaraworld.presentation.commonwidgets.CommonAddToBag
 import com.example.banjaraworld.presentation.commonwidgets.CommonAppBar
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.ui.theme.background
@@ -64,7 +65,8 @@ fun ShoppingDetails(
     modifier: Modifier = Modifier,
     link: String? = null,
     onclick: () -> Unit,
-    onAddtoBagClick: () -> Unit
+    onAddtoBagClick: () -> Unit,
+    goToWishlist: () -> Unit
 ) {
 
     val images = listOf(R.drawable.sheet, R.drawable.sheet, R.drawable.sheet)
@@ -81,7 +83,7 @@ fun ShoppingDetails(
         contentAlignment = Alignment.BottomCenter // Align content to the bottom center
     ) {
         Column {
-            ShoppingAppBar(cartCount, scrollState)
+            ShoppingAppBar(cartCount, scrollState, goToWishlist)
             LazyColumn(
                 modifier = Modifier
                     .weight(1f)
@@ -335,7 +337,7 @@ fun ShareLikeAndCartCard(
             }
 
             IconButton(
-                onClick = { /*TODO*/ }, modifier = Modifier
+                onClick = {}, modifier = Modifier
                     .size(20.dp)
                     .background(
                         color = background,
@@ -348,29 +350,7 @@ fun ShareLikeAndCartCard(
                     tint = Color.Gray
                 )
             }
-            Button(
-                modifier = Modifier,
-                shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
-                onClick = {
-                    showBottomSheet = true
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = onSecondary)
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.ShoppingBag,
-                    contentDescription = "Bag",
-                    tint = Color.White,
-                    modifier = Modifier.size(20.dp)
-                )
-                Spacer(modifier = Modifier.width(BwDimensions.PADDING_4))
-                CommonText(
-                    text = "Add To Bag",
-                    fontSize = BwDimensions.FONT_11,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier
-                )
-            }
+            CommonAddToBag(onclick = { showBottomSheet = true })
         }
 
     }
@@ -896,13 +876,19 @@ fun LikeCountCard(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShoppingAppBar(cartCount: MutableState<Int>, scrollState: LazyGridState) {
+fun ShoppingAppBar(
+    cartCount: MutableState<Int>,
+    scrollState: LazyGridState,
+    goToWishlist: () -> Unit
+) {
     CommonAppBar(
         text = "",
         onCartClick = { /*TODO*/ },
         onBackClick = { /*TODO*/ },
         cartCount = cartCount,
-        scrollState = scrollState, onFavoriteClick = {}
+        scrollState = scrollState, onFavoriteClick = {
+            goToWishlist()
+        }
     )
 }
 

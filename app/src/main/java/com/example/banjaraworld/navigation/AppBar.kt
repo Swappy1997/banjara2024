@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,7 +38,7 @@ fun AppBar(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = background),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        shape = RoundedCornerShape(bottomStart = 12.dp, bottomEnd = 12.dp)
+        shape = RectangleShape
     ) {
         TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
             containerColor = surface,
