@@ -29,7 +29,10 @@ import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndi
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun MarriageOccupationAndEducationScreen(modifier: Modifier = Modifier) {
+fun MarriageOccupationAndEducationScreen(
+    modifier: Modifier = Modifier,
+    onContinueClick: () -> Unit
+) {
 
     val highestEducationList =
         listOf("Graduate", "Post Graduate", "Diploma", "Under Graduate", "Ssc", "HSC", "Other")
@@ -191,7 +194,9 @@ fun MarriageOccupationAndEducationScreen(modifier: Modifier = Modifier) {
         }
 
         Spacer(modifier = Modifier.weight(1f))
-        CommonButton(text = stringResource(id = R.string.continues), onClick = {})
+        CommonButton(text = stringResource(id = R.string.continues), onClick = {
+            onContinueClick.invoke()
+        })
 
     }
 }

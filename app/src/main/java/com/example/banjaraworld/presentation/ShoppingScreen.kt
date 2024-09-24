@@ -235,7 +235,8 @@ fun ProductItem(product: Product, onclick: () -> Unit) {
                             .clickable(
                                 onClick = { isLiked = !isLiked },
                                 indication = null,
-                                interactionSource = remember { MutableInteractionSource() }
+                                interactionSource = remember { MutableInteractionSource()
+                                }
                             )
                             .size(20.dp)
                             .background(shape = CircleShape, color = background),

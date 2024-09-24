@@ -1,5 +1,7 @@
+
 package com.example.banjaraworld.navigation
 
+import MarriageHomeScreen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavGraphBuilder
@@ -59,7 +61,12 @@ fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
             })
         }
         composable(MarriageScreen.M_R_Seventh_Screen.route) {
-            MarriageOccupationAndEducationScreen()
+            MarriageOccupationAndEducationScreen(onContinueClick = {
+                navController.navigate(MarriageScreen.MARRIAGE_HOME_SCREEN.route)
+            })
+        }
+        composable(MarriageScreen.MARRIAGE_HOME_SCREEN.route) {
+            MarriageHomeScreen()
         }
     }
 }
@@ -74,5 +81,5 @@ sealed class MarriageScreen(val route: String) {
     object M_R_Fifth_Screen : MarriageScreen("m_r_state_and_city_screen")
     object M_R_Sixth_Screen : MarriageScreen("m_r_photo_upload_screen")
     object M_R_Seventh_Screen : MarriageScreen("m_r_occupation_and_education_screen")
-
+object MARRIAGE_HOME_SCREEN : MarriageScreen("marriage_home_screen")
 }
