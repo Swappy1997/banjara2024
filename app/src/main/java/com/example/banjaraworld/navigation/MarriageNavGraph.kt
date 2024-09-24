@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.example.banjaraworld.presentation.commonwidgets.MarriageSheet
+import com.example.banjaraworld.presentation.marriageregistration.MarriageDetailScreen
 import com.example.banjaraworld.presentation.marriageregistration.fifthscreenmarraige.MarriageOccupationAndEducationScreen
 import com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage.MarriageRegistrationGenderScreen
 import com.example.banjaraworld.presentation.marriageregistration.fourthscreenmarriage.MarriageUploadPhotoScreen
@@ -66,7 +67,14 @@ fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
             })
         }
         composable(MarriageScreen.MARRIAGE_HOME_SCREEN.route) {
-            MarriageHomeScreen()
+            MarriageHomeScreen(
+                onContinueClick = {
+                    navController.navigate(MarriageScreen.MARRIAGE_DETAIL_SCREEN.route)
+                }
+            )
+        }
+        composable(MarriageScreen.MARRIAGE_DETAIL_SCREEN.route) {
+            MarriageDetailScreen()
         }
     }
 }
@@ -82,4 +90,5 @@ sealed class MarriageScreen(val route: String) {
     object M_R_Sixth_Screen : MarriageScreen("m_r_photo_upload_screen")
     object M_R_Seventh_Screen : MarriageScreen("m_r_occupation_and_education_screen")
 object MARRIAGE_HOME_SCREEN : MarriageScreen("marriage_home_screen")
+    object MARRIAGE_DETAIL_SCREEN : MarriageScreen("marriage_detail_screen")
 }

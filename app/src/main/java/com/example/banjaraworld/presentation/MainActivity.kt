@@ -43,9 +43,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             BanjaraWorldTheme {
-                MarriageDetailScreen()
+              //  MarriageDetailScreen()
                // MarriageHomeScreen()
-              // RootNavigationGraph(navController)
+              RootNavigationGraph(navController)
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, inset ->

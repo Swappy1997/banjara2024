@@ -50,7 +50,7 @@ import com.example.banjaraworld.ui.theme.onSecondary
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun MarriageHomeScreen(modifier: Modifier = Modifier) {
+fun MarriageHomeScreen(modifier: Modifier = Modifier, onContinueClick: () -> Unit) {
     var scrollState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     var onFilterIconClick by remember {
@@ -82,7 +82,6 @@ fun MarriageHomeScreen(modifier: Modifier = Modifier) {
                     onFilterIconClick = !onFilterIconClick
                 }
             )
-            FilterSheet(text = "Filter By", list = listOf())
             AnimatedVisibility(visible = onFilterIconClick) {
                 Column {
                     CommonText(
@@ -143,7 +142,7 @@ fun MarriageHomeScreen(modifier: Modifier = Modifier) {
             ) {
                 items(15) {
 
-                    MarriageCardWithOverlay()
+                    MarriageCardWithOverlay(onContinueClick)
 
                 }
 
@@ -154,7 +153,7 @@ fun MarriageHomeScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MarriageCardWithOverlay() {
+fun MarriageCardWithOverlay(onContinueClick: () -> Unit) {
     var onFavClick by remember {
         mutableStateOf(false)
     }
@@ -198,6 +197,9 @@ fun MarriageCardWithOverlay() {
                 // Text content on top of the image, aligned to the bottom
                 Column(
                     modifier = Modifier
+                        .clickable {
+                            onContinueClick()
+                        }
                         .align(Alignment.BottomStart)
                         .padding(16.dp)
                 ) {
