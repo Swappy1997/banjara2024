@@ -1,4 +1,3 @@
-
 package com.example.banjaraworld.navigation
 
 import MarriageHomeScreen
@@ -6,8 +5,10 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.example.banjaraworld.presentation.commonwidgets.MarriageSheet
 import com.example.banjaraworld.presentation.marriageregistration.MarriageDetailScreen
 import com.example.banjaraworld.presentation.marriageregistration.fifthscreenmarraige.MarriageOccupationAndEducationScreen
@@ -70,11 +71,28 @@ fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
             MarriageHomeScreen(
                 onContinueClick = {
                     navController.navigate(MarriageScreen.MARRIAGE_DETAIL_SCREEN.route)
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                },
+                onMyProfileClick = {
+                    navController.navigate("${MarriageScreen.MARRIAGE_DETAIL_SCREEN.route}?isProfile=true")
                 }
             )
         }
-        composable(MarriageScreen.MARRIAGE_DETAIL_SCREEN.route) {
-            MarriageDetailScreen()
+        composable(
+            route = "${MarriageScreen.MARRIAGE_DETAIL_SCREEN.route}?isProfile={isProfile}",
+            arguments = listOf(navArgument("isProfile") {
+                type = NavType.BoolType // Define the type of the argument
+                defaultValue = false    // Optional: Set a default value if not provided
+            })
+        ) { navBackStackEntry ->
+
+            // Retrieve the flag from navBackStackEntry
+            val isProfile = navBackStackEntry.arguments?.getBoolean("isProfile") ?: false
+
+            // Now you can use `isProfile` in your MarriageDetailScreen
+            MarriageDetailScreen(isProfile = isProfile)
         }
     }
 }
@@ -89,6 +107,6 @@ sealed class MarriageScreen(val route: String) {
     object M_R_Fifth_Screen : MarriageScreen("m_r_state_and_city_screen")
     object M_R_Sixth_Screen : MarriageScreen("m_r_photo_upload_screen")
     object M_R_Seventh_Screen : MarriageScreen("m_r_occupation_and_education_screen")
-object MARRIAGE_HOME_SCREEN : MarriageScreen("marriage_home_screen")
+    object MARRIAGE_HOME_SCREEN : MarriageScreen("marriage_home_screen")
     object MARRIAGE_DETAIL_SCREEN : MarriageScreen("marriage_detail_screen")
 }

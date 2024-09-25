@@ -21,9 +21,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.navigation.compose.rememberNavController
 import com.example.banjaraworld.navigation.RootNavigationGraph
-import com.example.banjaraworld.navigation.ShoppingScreens
 import com.example.banjaraworld.presentation.marriageregistration.MarriageDetailScreen
-import com.example.banjaraworld.presentation.shopping.ShoppingBagScreen
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -43,9 +41,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             BanjaraWorldTheme {
-              //  MarriageDetailScreen()
-              //  MarriageHomeScreen(onContinueClick = {})
-              RootNavigationGraph(navController)
+                 MarriageDetailScreen(isProfile = true)
+//                MarriageHomeScreen(onContinueClick = {}, onBackClick = {
+//                    navController.popBackStack()
+//                }, onMyProfileClick = {
+//                    navController.navigate("${com.example.banjaraworld.navigation.MarriageScreen.MARRIAGE_DETAIL_SCREEN.route}?isProfile=true")
+//                })
+                //RootNavigationGraph(navController)
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, inset ->

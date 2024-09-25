@@ -28,6 +28,7 @@ fun CommonButton(
     text: String,
     onClick: () -> Unit,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier,
+    color: Color = onSecondary,
 ) {
     Button(
         onClick = { onClick.invoke() },
@@ -35,7 +36,7 @@ fun CommonButton(
             .fillMaxWidth()
             .shadow(
                 elevation = 2.dp,
-                    spotColor = Purple40,
+                spotColor = Purple40,
                 ambientColor = Purple40,
                 shape = RoundedCornerShape(20.dp),
                 clip = true
@@ -43,7 +44,7 @@ fun CommonButton(
 
 //        shape = RoundedCornerShape(12.dp),
 //        elevation = ButtonDefaults.buttonElevation(15.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = onSecondary),
+        colors = ButtonDefaults.buttonColors(containerColor = color),
     ) {
         Text(
             text = text,

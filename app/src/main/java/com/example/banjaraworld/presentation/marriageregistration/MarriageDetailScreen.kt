@@ -54,6 +54,7 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.TempleHindu
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Work
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
@@ -105,8 +106,8 @@ import kotlin.text.Typography.amp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MarriageDetailScreen(modifier: Modifier = Modifier) {
-    val images = listOf(R.drawable.sheet, R.drawable.sheet, R.drawable.sheet)
+fun MarriageDetailScreen(modifier: Modifier = Modifier, isProfile: Boolean) {
+    val images = listOf(R.drawable.one, R.drawable.two, R.drawable.three)
     val pagerState = rememberPagerState(pageCount = { images.size })
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val listState = rememberLazyListState() // Manage the list state for scroll control
@@ -128,25 +129,25 @@ fun MarriageDetailScreen(modifier: Modifier = Modifier) {
                     Spacer(modifier = Modifier.height(BwDimensions.SPACING_12))
                 }
                 item {
-                    AboutUser(userName = "Swapnil")
+                    AboutUser(userName = "Swapnil", isProfile = isProfile)
                     Spacer(modifier = Modifier.height(BwDimensions.SPACING_12))
                 }
                 item {
-                    BasicDetail()
+                    BasicDetail(isProfile = isProfile)
                     Spacer(modifier = Modifier.height(BwDimensions.SPACING_8))
                 }
                 item {
-                    ContactDetail()
+                    ContactDetail(isProfile = isProfile)
                 }
                 item {
-                    FamilyDetails()
+                    FamilyDetails(isProfile = isProfile)
                 }
                 item {
-                    CareerAndEducation()
+                    CareerAndEducation(isProfile = isProfile)
                 }
 
                 item {
-                    HobbiesAndInterests()
+                    HobbiesAndInterests(isProfile = isProfile)
                 }
                 item {
                     Spacer(modifier = Modifier.padding(bottom = 100.dp))
@@ -193,7 +194,7 @@ fun MarriageDetailScreen(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun HobbiesAndInterests(modifier: Modifier = Modifier) {
+fun HobbiesAndInterests(modifier: Modifier = Modifier, isProfile: Boolean) {
     val hobbies = listOf<Hobbies>(
         Hobbies(Icons.Default.FoodBank, "Cooking"),
         Hobbies(Icons.Default.SportsGymnastics, "Working Out"),
@@ -209,40 +210,51 @@ fun HobbiesAndInterests(modifier: Modifier = Modifier) {
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(BwDimensions.PADDING_12)
-        ) {
-            CommonText(
-                text = "Hobbies $amp Interests",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
-            FlowRow {
-                hobbies.forEach { hobbies ->
-                    SuggestionChip(modifier = Modifier.padding(horizontal = BwDimensions.PADDING_4),
-                        onClick = { /*TODO*/ },
-                        label = {
-                            CommonText(
-                                text = hobbies.hobbieName,
-                                fontSize = BwDimensions.FONT_11,
-                                color = Color.Gray,
-                                fontWeight = FontWeight.Medium
-                            )
-                        },
-                        icon = {
-                            Icon(
-                                imageVector = hobbies.imageVector,
-                                contentDescription = hobbies.hobbieName,
-                                tint = Pink40
-                            )
-                        })
-
-                }
+        Box(modifier = modifier) {
+            if (isProfile) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(BwDimensions.PADDING_12)
+                )
             }
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(BwDimensions.PADDING_12)
+            ) {
+                CommonText(
+                    text = "Hobbies $amp Interests",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+                FlowRow {
+                    hobbies.forEach { hobbies ->
+                        SuggestionChip(modifier = Modifier.padding(horizontal = BwDimensions.PADDING_4),
+                            onClick = { /*TODO*/ },
+                            label = {
+                                CommonText(
+                                    text = hobbies.hobbieName,
+                                    fontSize = BwDimensions.FONT_11,
+                                    color = Color.Gray,
+                                    fontWeight = FontWeight.Medium
+                                )
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = hobbies.imageVector,
+                                    contentDescription = hobbies.hobbieName,
+                                    tint = Pink40
+                                )
+                            })
 
+                    }
+                }
+
+            }
         }
     }
 }
@@ -497,7 +509,8 @@ fun UserPhotos(
 }
 
 @Composable
-fun AboutUser(modifier: Modifier = Modifier, userName: String) {
+fun AboutUser(modifier: Modifier = Modifier, userName: String, isProfile: Boolean) {
+
 
     Card(
         modifier = Modifier
@@ -506,151 +519,49 @@ fun AboutUser(modifier: Modifier = Modifier, userName: String) {
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(BwDimensions.PADDING_12)
-        ) {
-            CommonText(
-                text = "About $userName",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Start,
-            )
-
-            Spacer(modifier = Modifier.height(BwDimensions.SPACING_8))
-            Text(
-                text = "Hello ,here little bit about myself . I have completed my B.E/B.Tech now working in Swiggy india as Software engineer/Programmer currently living in Washim Maharashtra.Please get in touch in case you like my profile.",
-                modifier = Modifier,
-                fontWeight = FontWeight.Normal,
-                fontSize = BwDimensions.FONT_14,
-                style = TextStyle.Default.copy(
-                    lineBreak = LineBreak.Paragraph
-                ),
-                lineHeight = BwDimensions.FONT_23
-            )
-        }
-    }
-}
-
-@Composable
-fun CareerAndEducation(modifier: Modifier = Modifier) {
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(BwDimensions.PADDING_4),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
-    ) {
-        Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
-            CommonText(
-                text = "Career $amp Education Details",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
-            Spacer(modifier = Modifier.height(BwDimensions.SPACING_8))
-            BasicDetail2(
-                icon = Icons.Default.Work,
-                tittle = "Profession",
-                value = "Software Engineer with Private Company",
-                backgroundColor = Pink80
-            )
-            BasicDetail2(
-                icon = Icons.Default.Business,
-                tittle = "Employer Name",
-                value = "**********",
-                backgroundColor = Pink80
-            )
-            BasicDetail2(
-                icon = Icons.Default.Work,
-                tittle = "Annual Income",
-                value = "Self :INR 20 Lakh to 22 Lakh ",
-                backgroundColor = Pink80
-            )
-            BasicDetail2(
-                icon = Icons.Default.School,
-                tittle = "Highest Qualification",
-                value = "Bachelor of Engineering",
-                backgroundColor = Pink80
-            )
-            BasicDetail2(
-                icon = Icons.Default.Architecture,
-                tittle = "Education Field",
-                value = "Engineering",
-                backgroundColor = Pink80
-            )
-            BasicDetail2(
-                icon = Icons.Default.Business,
-                tittle = "College Name",
-                value = "**********",
-                backgroundColor = Pink80
-            )
-
-
-        }
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun FamilyDetails(modifier: Modifier = Modifier) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(BwDimensions.PADDING_4),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
-    ) {
-        Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
-            CommonText(
-                text = "Family Details",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
-            FlowRow {
-                BasicDetailCard(text = "Moderate")
-                BasicDetailCard(text = "Nuclear")
+        Box(modifier = modifier) {
+            if (isProfile) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(BwDimensions.PADDING_12)
+                )
             }
-            Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-            BasicDetail2(
-                icon = Icons.Default.People,
-                tittle = "Parents' Details",
-                value = "Father is Farmer \n,Mother is Homemaker",
-                backgroundColor = Purple40
-            )
-            BasicDetail2(
-                icon = Icons.Default.People,
-                tittle = "No. of Siblings",
-                value = "0 Brother \n,2 Sister",
-                backgroundColor = Purple40
-            )
-            BasicDetail2(
-                icon = Icons.Default.People,
-                tittle = "Siblings Marital Status",
-                value = "Both Married",
-                backgroundColor = Purple40
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(BwDimensions.PADDING_12)
+            ) {
+                CommonText(
+                    text = "About $userName",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Start,
+                )
 
-            BasicDetail2(
-                icon = Icons.Default.People,
-                tittle = "Family Financial Status",
-                value = "Middle - Annual family income is 4-5 lakhs",
-                backgroundColor = Purple40
-            )
-
+                Spacer(modifier = Modifier.height(BwDimensions.SPACING_8))
+                Text(
+                    text = "Hello ,here little bit about myself . I have completed my B.E/B.Tech now working in Swiggy india as Software engineer/Programmer currently living in Washim Maharashtra.Please get in touch in case you like my profile.",
+                    modifier = Modifier,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = BwDimensions.FONT_14,
+                    style = TextStyle.Default.copy(
+                        lineBreak = LineBreak.Paragraph
+                    ),
+                    lineHeight = BwDimensions.FONT_23
+                )
+            }
         }
 
-
     }
-
 }
 
 @Composable
-fun ContactDetail(modifier: Modifier = Modifier) {
+fun CareerAndEducation(modifier: Modifier = Modifier, isProfile: Boolean) {
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -658,45 +569,69 @@ fun ContactDetail(modifier: Modifier = Modifier) {
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
     ) {
-        Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
-            CommonText(
-                text = "Contact Details",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
+        Box(modifier = modifier) {
+            if (isProfile) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(BwDimensions.PADDING_12)
+                )
+            }
+            Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
+                CommonText(
+                    text = "Career $amp Education Details",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+                Spacer(modifier = Modifier.height(BwDimensions.SPACING_8))
+                BasicDetail2(
+                    icon = Icons.Default.Work,
+                    tittle = "Profession",
+                    value = "Software Engineer with Private Company",
+                    backgroundColor = Pink80
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Business,
+                    tittle = "Employer Name",
+                    value = "**********",
+                    backgroundColor = Pink80
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Work,
+                    tittle = "Annual Income",
+                    value = "Self :INR 20 Lakh to 22 Lakh ",
+                    backgroundColor = Pink80
+                )
+                BasicDetail2(
+                    icon = Icons.Default.School,
+                    tittle = "Highest Qualification",
+                    value = "Bachelor of Engineering",
+                    backgroundColor = Pink80
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Architecture,
+                    tittle = "Education Field",
+                    value = "Engineering",
+                    backgroundColor = Pink80
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Business,
+                    tittle = "College Name",
+                    value = "**********",
+                    backgroundColor = Pink80
+                )
+            }
 
-            BasicDetail2(
-                icon = Icons.Default.Phone,
-                tittle = "Contact No.",
-                value = "+91 9876******",
-                backgroundColor = darkGreen
-            )
-            BasicDetail2(
-                icon = Icons.Default.Email,
-                tittle = "Email Id",
-                value = "*********@gmail.com",
-                backgroundColor = darkGreen
-            )
-            Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-            HorizontalDivider()
-            Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-            CommonText(
-                text = "unlock Contact Details",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
-            CommonButton(text = "Get Subscription", onClick = { /*TODO*/ })
         }
-
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BasicDetail(modifier: Modifier = Modifier) {
-
+fun FamilyDetails(modifier: Modifier = Modifier, isProfile: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -704,79 +639,209 @@ fun BasicDetail(modifier: Modifier = Modifier) {
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
     ) {
-        Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
-            CommonText(
-                text = "Basic Details",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
-            val BasicDetailList = listOf(
-                "create by myself", "26 years old", "Height 5'8"
-            )
-            FlowRow {
-                BasicDetailList.forEach {
-                    BasicDetailCard(text = it)
-                    Spacer(modifier = Modifier.padding(BwDimensions.PADDING_4))
+        Box(modifier = modifier) {
+            if (isProfile) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(BwDimensions.PADDING_12)
+                )
+            }
+            Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
+                CommonText(
+                    text = "Family Details",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+                FlowRow {
+                    BasicDetailCard(text = "Moderate")
+                    BasicDetailCard(text = "Nuclear")
                 }
+                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                BasicDetail2(
+                    icon = Icons.Default.People,
+                    tittle = "Parents' Details",
+                    value = "Father is Farmer \n,Mother is Homemaker",
+                    backgroundColor = Purple40
+                )
+                BasicDetail2(
+                    icon = Icons.Default.People,
+                    tittle = "No. of Siblings",
+                    value = "0 Brother \n,2 Sister",
+                    backgroundColor = Purple40
+                )
+                BasicDetail2(
+                    icon = Icons.Default.People,
+                    tittle = "Siblings Marital Status",
+                    value = "Both Married",
+                    backgroundColor = Purple40
+                )
+
+                BasicDetail2(
+                    icon = Icons.Default.People,
+                    tittle = "Family Financial Status",
+                    value = "Middle - Annual family income is 4-5 lakhs",
+                    backgroundColor = Purple40
+                )
+
             }
-            BasicDetail2(
-                icon = Icons.Default.DateRange,
-                tittle = "Birth Date",
-                value = "10/09/1997",
-                backgroundColor = onPrimary
-            )
-            BasicDetail2(
-                icon = Icons.Default.Timer,
-                tittle = "Birth Time",
-                value = "05:10 Am",
-                backgroundColor = onPrimary
-            )
-
-            BasicDetail2(
-                icon = Icons.Default.People,
-                tittle = "Marital Status",
-                value = "Never Married",
-                backgroundColor = onPrimary
-            )
-            BasicDetail2(
-                icon = Icons.Default.LocationOn,
-                tittle = "Lives In",
-                value = "Lives in washim ,Maharashtra ,India",
-                backgroundColor = onPrimary
-            )
-            BasicDetail2(
-                icon = Icons.Default.TempleHindu,
-                tittle = "Mother Tongue",
-                value = "Marathi",
-                backgroundColor = onPrimary
-            )
-            BasicDetail2(
-                icon = Icons.Default.Cookie,
-                tittle = "Diet Preference",
-                value = "Vegetarian",
-                backgroundColor = onPrimary
-            )
-            BasicDetail2(
-                icon = Icons.Default.Star,
-                tittle = "Gotra",
-                value = "0 Brother \n,2 Sister",
-                backgroundColor = onPrimary
-            )
-            Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-            HorizontalDivider()
-            Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-            CommonText(
-                text = "unlock Birth Date",
-                fontSize = BwDimensions.FONT_17,
-                color = Color.Black,
-                fontWeight = FontWeight.Medium
-            )
-            CommonButton(text = "Get Subscription", onClick = { /*TODO*/ })
-
 
         }
+    }
 
+}
+
+@Composable
+fun ContactDetail(modifier: Modifier = Modifier, isProfile: Boolean) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(BwDimensions.PADDING_4),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
+    ) {
+        Box(modifier = modifier) {
+            if (isProfile) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(BwDimensions.PADDING_12)
+                )
+            }
+            Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
+                CommonText(
+                    text = "Contact Details",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+
+                BasicDetail2(
+                    icon = Icons.Default.Phone,
+                    tittle = "Contact No.",
+                    value = "+91 9876******",
+                    backgroundColor = darkGreen
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Email,
+                    tittle = "Email Id",
+                    value = "*********@gmail.com",
+                    backgroundColor = darkGreen
+                )
+                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                CommonText(
+                    text = "unlock Contact Details",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+                CommonButton(text = "Get Subscription", onClick = { /*TODO*/ })
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun BasicDetail(modifier: Modifier = Modifier, isProfile: Boolean) {
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(BwDimensions.PADDING_4),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
+    ) {
+        Box(modifier = modifier) {
+            if (isProfile) {
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "edit",
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(BwDimensions.PADDING_12)
+                )
+            }
+            Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
+                CommonText(
+                    text = "Basic Details",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+                val BasicDetailList = listOf(
+                    "create by myself", "26 years old", "Height 5'8"
+                )
+                FlowRow {
+                    BasicDetailList.forEach {
+                        BasicDetailCard(text = it)
+                        Spacer(modifier = Modifier.padding(BwDimensions.PADDING_4))
+                    }
+                }
+                BasicDetail2(
+                    icon = Icons.Default.DateRange,
+                    tittle = "Birth Date",
+                    value = "10/09/1997",
+                    backgroundColor = onPrimary
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Timer,
+                    tittle = "Birth Time",
+                    value = "05:10 Am",
+                    backgroundColor = onPrimary
+                )
+
+                BasicDetail2(
+                    icon = Icons.Default.People,
+                    tittle = "Marital Status",
+                    value = "Never Married",
+                    backgroundColor = onPrimary
+                )
+                BasicDetail2(
+                    icon = Icons.Default.LocationOn,
+                    tittle = "Lives In",
+                    value = "Lives in washim ,Maharashtra ,India",
+                    backgroundColor = onPrimary
+                )
+                BasicDetail2(
+                    icon = Icons.Default.TempleHindu,
+                    tittle = "Mother Tongue",
+                    value = "Marathi",
+                    backgroundColor = onPrimary
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Cookie,
+                    tittle = "Diet Preference",
+                    value = "Vegetarian",
+                    backgroundColor = onPrimary
+                )
+                BasicDetail2(
+                    icon = Icons.Default.Star,
+                    tittle = "Gotra",
+                    value = "0 Brother \n,2 Sister",
+                    backgroundColor = onPrimary
+                )
+                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                HorizontalDivider()
+                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                CommonText(
+                    text = "unlock Birth Date",
+                    fontSize = BwDimensions.FONT_17,
+                    color = Color.Black,
+                    fontWeight = FontWeight.Medium
+                )
+                CommonButton(text = "Get Subscription", onClick = { /*TODO*/ })
+
+
+            }
+        }
     }
 }
 
@@ -863,10 +928,10 @@ fun UserMarriageCard(image: Int, pagerState: PagerState, screenWidth: Dp) {
             AsyncImage(
                 model = image,
                 contentDescription = null,
-                contentScale = ContentScale.Fit,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(400.dp)
+                    .height(500.dp)
             )
 
             ShoppingDivider(dividerOffset, screenWidth / 3, dividerThickness)

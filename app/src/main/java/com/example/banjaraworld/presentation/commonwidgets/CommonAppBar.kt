@@ -113,7 +113,7 @@ fun CommonAppBar2(
     onBackClick: () -> Unit,
     onFavoriteClick: () -> Unit,
     cartCount: State<Int>? = null,
-    favoriteCount: State<Int>? = null, // Add favorite count
+    favoriteCount: Int? = null, // Add favorite count
     isFavorite: Boolean = false,
     showCartIcon: Boolean = true,
     showFilterIcon: Boolean = true,
@@ -158,18 +158,17 @@ fun CommonAppBar2(
             }
 
 
-            if (showFavoriteIcon) {
+            if (showFavoriteIcon && favoriteCount != null) {
                 BadgedBox(modifier = Modifier
                     .padding( end = 12.dp), badge = {
                     Badge(containerColor = onPrimary) {
-                        if (favoriteCount != null) {
                             CommonText(
-                                text = "3",
+                                text = favoriteCount.toString(),
                                 fontSize = BwDimensions.FONT_8,
                                 color = Color.Black,
                                 fontWeight = FontWeight.Medium
                             )
-                        }
+
 
                     }
                 }) {
