@@ -40,12 +40,16 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.FoodBank
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ShoppingBasket
+import androidx.compose.material.icons.filled.SportsGymnastics
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.TempleHindu
 import androidx.compose.material.icons.filled.Timer
@@ -58,9 +62,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -88,6 +94,7 @@ import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.Utils.formatDiscountText
 import com.example.banjaraworld.common.utils.Utils.shareContent
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
+import com.example.banjaraworld.ui.theme.Pink40
 import com.example.banjaraworld.ui.theme.Pink80
 import com.example.banjaraworld.ui.theme.Purple40
 import com.example.banjaraworld.ui.theme.darkGreen
@@ -104,6 +111,7 @@ fun MarriageDetailScreen(modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val listState = rememberLazyListState() // Manage the list state for scroll control
     val coroutineScope = rememberCoroutineScope()
+
     Box {
         Box(
             modifier = modifier
@@ -135,6 +143,10 @@ fun MarriageDetailScreen(modifier: Modifier = Modifier) {
                 }
                 item {
                     CareerAndEducation()
+                }
+
+                item {
+                    HobbiesAndInterests()
                 }
                 item {
                     Spacer(modifier = Modifier.padding(bottom = 100.dp))
@@ -177,7 +189,62 @@ fun MarriageDetailScreen(modifier: Modifier = Modifier) {
 
 
     }
+}
 
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun HobbiesAndInterests(modifier: Modifier = Modifier) {
+    val hobbies = listOf<Hobbies>(
+        Hobbies(Icons.Default.FoodBank, "Cooking"),
+        Hobbies(Icons.Default.SportsGymnastics, "Working Out"),
+        Hobbies(Icons.Default.SportsGymnastics, "Working Out"),
+        Hobbies(Icons.Default.FoodBank, "Foodie"),
+        Hobbies(Icons.Default.ShoppingBasket, "Fashion"),
+        Hobbies(Icons.Default.MusicNote, "Singing"),
+    )
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(BwDimensions.PADDING_4),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
+        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(BwDimensions.PADDING_12)
+        ) {
+            CommonText(
+                text = "Hobbies $amp Interests",
+                fontSize = BwDimensions.FONT_17,
+                color = Color.Black,
+                fontWeight = FontWeight.Medium
+            )
+            FlowRow {
+                hobbies.forEach { hobbies ->
+                    SuggestionChip(modifier = Modifier.padding(horizontal = BwDimensions.PADDING_4),
+                        onClick = { /*TODO*/ },
+                        label = {
+                            CommonText(
+                                text = hobbies.hobbieName,
+                                fontSize = BwDimensions.FONT_11,
+                                color = Color.Gray,
+                                fontWeight = FontWeight.Medium
+                            )
+                        },
+                        icon = {
+                            Icon(
+                                imageVector = hobbies.imageVector,
+                                contentDescription = hobbies.hobbieName,
+                                tint = Pink40
+                            )
+                        })
+
+                }
+            }
+
+        }
+    }
 }
 
 @Composable
@@ -593,7 +660,7 @@ fun ContactDetail(modifier: Modifier = Modifier) {
     ) {
         Column(modifier = Modifier.padding(BwDimensions.PADDING_12)) {
             CommonText(
-                text = "Basic Details",
+                text = "Contact Details",
                 fontSize = BwDimensions.FONT_17,
                 color = Color.Black,
                 fontWeight = FontWeight.Medium
@@ -806,3 +873,6 @@ fun UserMarriageCard(image: Int, pagerState: PagerState, screenWidth: Dp) {
         }
     }
 }
+
+@Stable
+data class Hobbies(val imageVector: ImageVector, val hobbieName: String)

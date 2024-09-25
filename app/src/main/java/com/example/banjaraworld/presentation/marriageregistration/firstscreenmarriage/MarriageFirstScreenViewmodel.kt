@@ -5,6 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsBirthTimeSelectedUseCase
+import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsDateSelectedUseCase
+import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsDietPreferencesSelectedUseCase
 import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsGenderSelectedUseCase
 import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsMarriageStatusSelectedUseCase
 import com.example.banjaraworld.domain.usecases.marriageregistration.marriagefirstscreen.ValidateIsProfileCreatedForUseCase
@@ -18,7 +21,10 @@ import javax.inject.Inject
 class MarriageFirstScreenViewmodel @Inject constructor(
     private val validateIsGenderSelectedUseCase: ValidateIsGenderSelectedUseCase,
     private val validateIsMarriageStatusSelectedUseCase: ValidateIsMarriageStatusSelectedUseCase,
-    private val validateIsProfileCreatedForUseCase: ValidateIsProfileCreatedForUseCase
+    private val validateIsProfileCreatedForUseCase: ValidateIsProfileCreatedForUseCase,
+    private val validateIsDietPreferencesSelectedUseCase: ValidateIsDietPreferencesSelectedUseCase,
+    private val validateIsBirthTimeSelectedUseCase: ValidateIsBirthTimeSelectedUseCase,
+    private val validateIsDateSelectedUseCase: ValidateIsDateSelectedUseCase
 ) : ViewModel() {
 
 
@@ -46,6 +52,16 @@ class MarriageFirstScreenViewmodel @Inject constructor(
             is MarriageFirstScreenEvent.ProfileCreatedForChanged -> {
                 state = state.copy(isProfileCreatedForSelected = event.profileCreatedFor)
             }
+
+            is MarriageFirstScreenEvent.MarriageDietPreference -> {
+                state = state.copy(isDietPreferenceSelected = event.dietPreference)
+            }
+
+            is MarriageFirstScreenEvent.BirthDateChanged -> {
+                state = state.copy(isBirthDateSelected = event.birthDate)
+            }
+
+            is MarriageFirstScreenEvent.BirthTimeChanged -> TODO()
         }
     }
 
@@ -55,10 +71,15 @@ class MarriageFirstScreenViewmodel @Inject constructor(
             validateIsMarriageStatusSelectedUseCase.invoke(state.isMarriageStatusSelected)
         val profileCreatedForResult =
             validateIsProfileCreatedForUseCase.invoke(state.isProfileCreatedForSelected)
+        val dietPreferenceResult =
+            validateIsDietPreferencesSelectedUseCase.invoke(state.isDietPreferenceSelected)
+        val birthDateResult = validateIsDateSelectedUseCase.invoke(state.isBirthDateSelected)
         val hasError = listOf(
             genderResult,
             marriageStatusResult,
-            profileCreatedForResult
+            profileCreatedForResult,
+            dietPreferenceResult,
+            birthDateResult
         )
             .any {
                 !it.successful
@@ -67,7 +88,9 @@ class MarriageFirstScreenViewmodel @Inject constructor(
             state = state.copy(
                 isGenderSelectedError = genderResult.errorMessage,
                 isMarriageStatusSelectedError = marriageStatusResult.errorMessage,
-                isProfileCreatedForSelectedError = profileCreatedForResult.errorMessage
+                isProfileCreatedForSelectedError = profileCreatedForResult.errorMessage,
+                isDietPreferenceSelectedError = dietPreferenceResult.errorMessage,
+                isBirthDateSelectedError = birthDateResult.errorMessage
             )
             return
         }

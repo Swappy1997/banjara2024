@@ -3,6 +3,7 @@ package com.example.banjaraworld.common.utils
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -47,5 +48,29 @@ object Utils {
         }
         append(suffix)
     }
+
+
+    fun formatText(
+        formattedText: String,
+        prefix: String = "",
+        suffix: String = "",
+        discountColor: Color = darkGreen,
+        discountWeight: FontWeight = FontWeight.Bold
+    ) = buildAnnotatedString {
+        append(prefix)
+        withStyle(
+            style = SpanStyle(
+                color = discountColor,
+                fontWeight = discountWeight,
+                fontSize = BwDimensions.FONT_20
+            )
+        ) {
+            append(formattedText)
+        }
+        append(suffix)
+    }
+
+    val LazyListState.isScrolled: Boolean
+        get() = firstVisibleItemIndex > 0 || firstVisibleItemScrollOffset > 0
 
 }

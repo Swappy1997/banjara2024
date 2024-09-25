@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             BanjaraWorldTheme {
               //  MarriageDetailScreen()
-               // MarriageHomeScreen()
+              //  MarriageHomeScreen(onContinueClick = {})
               RootNavigationGraph(navController)
             }
         }

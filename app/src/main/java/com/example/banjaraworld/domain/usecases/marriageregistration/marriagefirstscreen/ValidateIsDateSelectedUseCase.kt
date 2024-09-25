@@ -3,12 +3,14 @@ package com.example.banjaraworld.domain.usecases.marriageregistration.marriagefi
 import com.example.banjaraworld.domain.usecases.ValidationResult
 import javax.inject.Inject
 
-class ValidateIsProfileCreatedForUseCase @Inject constructor() {
-    operator fun invoke(profileCreatedFor: String): ValidationResult {
-        if (profileCreatedFor.isBlank()) {
+class ValidateIsDateSelectedUseCase @Inject constructor() {
+
+    operator fun invoke(isDateSelected: String): ValidationResult {
+
+        if (isDateSelected.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "Please select profile created for"
+                errorMessage = "Please select your birth date"
             )
         }
         return ValidationResult(successful = true)

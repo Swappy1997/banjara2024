@@ -1,15 +1,19 @@
 package com.example.banjaraworld.presentation.commonwidgets
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.EmojiPeople
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.FilterAlt
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -76,12 +80,10 @@ fun CommonAppBar(
             }
 
             if (showCartIcon) {
-                Box(
-                    contentAlignment = Alignment.Center,
+                Box(contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
-                        .clickable { onCartClick() }
-                ) {
+                        .clickable { onCartClick() }) {
                     Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
                     if ((cartCount?.value ?: 0) > 0) {
                         CommonText(
@@ -119,7 +121,9 @@ fun CommonAppBar2(
     showFavoriteIcon: Boolean = true,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     scrollState: LazyListState,
-    onFilterClick: () -> Unit
+    onFilterClick: () -> Unit,
+    showUserProfile: Boolean = false,
+    onUserProfileClick: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
         title = {
@@ -142,8 +146,8 @@ fun CommonAppBar2(
             }
         },
         actions = {
-            if(showFilterIcon){
-                IconButton(onClick = {onFilterClick()}) {
+            if (showFilterIcon) {
+                IconButton(onClick = { onFilterClick() }) {
                     Icon(imageVector = Icons.Outlined.FilterAlt, contentDescription = "Search")
                 }
             }
@@ -155,7 +159,8 @@ fun CommonAppBar2(
 
 
             if (showFavoriteIcon) {
-                BadgedBox(modifier = Modifier.padding(end = 8.dp), badge = {
+                BadgedBox(modifier = Modifier
+                    .padding( end = 12.dp), badge = {
                     Badge(containerColor = onPrimary) {
                         if (favoriteCount != null) {
                             CommonText(
@@ -170,19 +175,20 @@ fun CommonAppBar2(
                 }) {
                     Icon(
                         imageVector = if (favoriteCount != null) Icons.Outlined.FavoriteBorder else Icons.Outlined.FavoriteBorder,
-                        contentDescription = "Favorite", modifier = Modifier.padding(2.dp)
+                        contentDescription = "Favorite",
+                        modifier = Modifier
+                            .size(33.dp)
+                            .padding(2.dp)
                     )
                 }
 
             }
 
             if (showCartIcon) {
-                Box(
-                    contentAlignment = Alignment.Center,
+                Box(contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
-                        .clickable { onCartClick() }
-                ) {
+                        .clickable { onCartClick() }) {
                     Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
                     if ((cartCount?.value ?: 0) > 0) {
                         CommonText(
@@ -197,6 +203,20 @@ fun CommonAppBar2(
                     }
                 }
             }
+            if (showUserProfile) {
+                IconButton(onClick = { onUserProfileClick() }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Person,
+                        contentDescription = "Search",
+                        Modifier
+                            .size(30.dp)
+                            .border(shape = CircleShape, width = 1.dp, color = Color.Gray)
+                            .padding(2.dp)
+
+                    )
+                }
+            }
+
         },
         scrollBehavior = scrollBehavior,
     )

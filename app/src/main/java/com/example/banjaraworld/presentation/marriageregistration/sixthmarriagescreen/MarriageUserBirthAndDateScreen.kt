@@ -2,10 +2,14 @@ package com.example.banjaraworld.presentation.marriageregistration.sixthmarriage
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
@@ -17,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -36,94 +41,31 @@ import com.example.banjaraworld.ui.theme.onSecondary
 @Composable
 fun UserBirthDateAndTime(modifier: Modifier = Modifier, onContiueClick: () -> Unit) {
 
-    var birthTime by remember { mutableStateOf("select time") }
-    var birthDate by remember { mutableStateOf("select date") }
-    var timeChipClick by remember { mutableStateOf(false) }
-    var dateChipClick by remember { mutableStateOf(false) }
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(BwDimensions.PADDING_8),
-        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_5)
+            .padding(BwDimensions.PADDING_8)
+            .systemBarsPadding()
     ) {
-        LinearDeterminateIndicator(0.3f)
-        CommonText(
-            text = "What is your birth date",
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            fontSize = BwDimensions.TITTLE_FONT_SIZE,
-            fontWeight = FontWeight.Bold,
+        LazyColumn(
             modifier = Modifier
-        )
-        SuggestionChip(
-            onClick = { dateChipClick = true },
-            label = {
-                CommonText(
-                    text = birthDate,
-                    color = onPrimary,
-                    textAlign = TextAlign.Center,
-                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier
-                )
-            }, icon = {
-                Icon(Icons.Filled.EditCalendar, contentDescription = "date", tint = onSecondary)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_8),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item {
+                LinearDeterminateIndicator(0.3f)
             }
-        )
-
-        CommonText(
-            text = "What is your birth time",
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            fontSize = BwDimensions.TITTLE_FONT_SIZE,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-        )
-
-        SuggestionChip(
-            onClick = { timeChipClick = true },
-            label = {
-                CommonText(
-                    birthTime,
-                    color = onPrimary,
-                    textAlign = TextAlign.Center,
-                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier
-                )
-            },
-            icon = {
-                Icon(Icons.Filled.AccessTime, contentDescription = "time", tint = onSecondary)
-            }
-        )
-        if (timeChipClick) {
-            AdvancedTimePickerExample(
-                onConfirm = { timePickerState ->
-                    val selectedTime = "${timePickerState.hour}:${timePickerState.minute}"
-                    birthTime = selectedTime
-                    Log.d("TimePicker", "Selected time: $selectedTime")
-                    timeChipClick = false
-                },
-                onDismiss = { timeChipClick = false }
-            )
         }
-        if (dateChipClick) {
-            DatePickerWithDialog(
-                onDateSelected = { selectedDate ->
-                    birthDate = selectedDate
-                    Log.d("DatePicker", "Selected date: $selectedDate")
-                    dateChipClick = false
-                },
-                onDismiss = { dateChipClick = false },
 
-                )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        CommonButton(text = stringResource(R.string.continues), onClick = {
-            onContiueClick.invoke()
-        })
+        CommonButton(
+            text = stringResource(R.string.continues), onClick = {
+                onContiueClick.invoke()
+            }, modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+        )
+
     }
-
 }

@@ -11,8 +11,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -57,33 +60,46 @@ fun MarriageUploadPhotoScreen(modifier: Modifier = Modifier, onContinueClick: ()
             }
         }
     }
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(BwDimensions.PADDING_8),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+            .padding(BwDimensions.PADDING_8)
+            .systemBarsPadding()
     ) {
-        LinearDeterminateIndicator(0.6f)
-        ImageContainer(
-            imageUri = imageUri1,
-            onClick = { pickImageLauncher.launch("image/*") },
-            containerColor = Color.LightGray
-        )
-        ImageContainer(
-            imageUri = imageUri2,
-            onClick = { pickImageLauncher.launch("image/*") },
-            containerColor = Color.Gray
-        )
-        ImageContainer(
-            imageUri = imageUri3,
-            onClick = { pickImageLauncher.launch("image/*") },
-            containerColor = Color.DarkGray
-        )
-        Spacer(modifier = Modifier.weight(1f))
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize().padding(BwDimensions.PADDING_8),
+            verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_8),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            item {
+                LinearDeterminateIndicator(0.6f)
+
+            }
+            item {
+
+                ImageContainer(
+                    imageUri = imageUri1,
+                    onClick = { pickImageLauncher.launch("image/*") },
+                    containerColor = Color.LightGray
+                )
+                ImageContainer(
+                    imageUri = imageUri2,
+                    onClick = { pickImageLauncher.launch("image/*") },
+                    containerColor = Color.Gray
+                )
+                ImageContainer(
+                    imageUri = imageUri3,
+                    onClick = { pickImageLauncher.launch("image/*") },
+                    containerColor = Color.DarkGray
+                )
+            }
+        }
         CommonButton(
-            onClick = { onContinueClick.invoke() }, text = stringResource(R.string.continues)
+            onClick = { onContinueClick.invoke() }, text = stringResource(R.string.continues),
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
         )
     }
 }

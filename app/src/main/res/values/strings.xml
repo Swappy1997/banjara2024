@@ -32,5 +32,6 @@
     <string name="enter_your_mother_name">enter your mother\'s  name\n</string>
     <string name="banjara_bazar">Banjara Bazar</string>
     <string name="price_format">₹%1$.2f</string>
+    <string name="enter_email_id"> please enter your email id</string>
 
 </resources>

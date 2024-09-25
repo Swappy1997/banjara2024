@@ -4,6 +4,7 @@ import NumberPickerWithSuffix
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.SuggestionChip
@@ -54,58 +57,82 @@ fun MarriageHeightScreen(
     val currentRange = if (selectedUnit == "cm") cmRange else inchRange
 
     BanjaraWorldTheme {
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(BwDimensions.PADDING_8),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .padding(BwDimensions.PADDING_8)
+                .systemBarsPadding()
         ) {
-            LinearDeterminateIndicator(progressValue = 0.4f)
-            CommonText(
-                text = "What is your height",
-                fontSize = BwDimensions.TITTLE_FONT_SIZE,
-                color = Color.Black,
-                fontWeight = FontWeight.SemiBold,
+            LazyColumn(
                 modifier = Modifier
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(BwDimensions.SPACING_8)
             ) {
-                NumberPickerWithSuffix(
-                    range = if (selectedUnit != "cm") ftRange else currentRange,
-                    selectedValue = if (selectedUnit != "cm") ftValue else cmValue,
-                    onValueChange = {
-                        if (selectedUnit != "cm") setFtValue(it) else setCmValue(it)
-                    }
-                )
-                CommonText(
-                    text = if (selectedUnit != "cm") "ft" else "cm",
-                    fontSize = BwDimensions.TITTLE_FONT_SIZE,
-                    color = onPrimary,
-                    fontWeight = FontWeight.SemiBold,
+
+                item {
+                    LinearDeterminateIndicator(progressValue = 0.4f)
+                }
+                item {
+                    CommonText(
+                        text = "What is your height",
+                        fontSize = BwDimensions.TITTLE_FONT_SIZE,
+                        color = Color.Black,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier
+                    )
+
+                }
+            }
+            Column(
+                modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
                     modifier = Modifier
-                )
-                if (selectedUnit != "cm") {
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
                     NumberPickerWithSuffix(
-                        range = inchRange, selectedValue = inchValue, onValueChange = setInchValue
+                        range = if (selectedUnit != "cm") ftRange else currentRange,
+                        selectedValue = if (selectedUnit != "cm") ftValue else cmValue,
+                        onValueChange = {
+                            if (selectedUnit != "cm") setFtValue(it) else setCmValue(it)
+                        }
                     )
                     CommonText(
-                        text = selectedUnit,
+                        text = if (selectedUnit != "cm") "ft" else "cm",
                         fontSize = BwDimensions.TITTLE_FONT_SIZE,
                         color = onPrimary,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier
                     )
+                    if (selectedUnit != "cm") {
+                        NumberPickerWithSuffix(
+                            range = inchRange,
+                            selectedValue = inchValue,
+                            onValueChange = setInchValue
+                        )
+                        CommonText(
+                            text = selectedUnit,
+                            fontSize = BwDimensions.TITTLE_FONT_SIZE,
+                            color = onPrimary,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier
+                        )
+                    }
                 }
+                Spacer(modifier = Modifier.height(BwDimensions.SPACING_24))
+                UnitSwitch(
+                    selectedUnit = selectedUnit,
+                    onUnitChange = setSelectedUnit,
+                )
             }
-            Spacer(modifier = Modifier.height(BwDimensions.SPACING_24))
-            UnitSwitch(selectedUnit = selectedUnit, onUnitChange = setSelectedUnit)
-            Spacer(modifier = Modifier.weight(1f))
+
             CommonButton(
-                modifier = Modifier.navigationBarsPadding(),
+                modifier = Modifier.align(Alignment.BottomCenter),
                 text = stringResource(id = R.string.continues),
                 onClick = onContinueClick
             )
