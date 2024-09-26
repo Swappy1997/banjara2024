@@ -41,13 +41,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             BanjaraWorldTheme {
-                 MarriageDetailScreen(isProfile = true)
+              //   MarriageDetailScreen(isProfile = true)
 //                MarriageHomeScreen(onContinueClick = {}, onBackClick = {
 //                    navController.popBackStack()
 //                }, onMyProfileClick = {
 //                    navController.navigate("${com.example.banjaraworld.navigation.MarriageScreen.MARRIAGE_DETAIL_SCREEN.route}?isProfile=true")
 //                })
-                //RootNavigationGraph(navController)
+                RootNavigationGraph(navController)
             }
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { view, inset ->

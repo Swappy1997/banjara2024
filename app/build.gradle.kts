@@ -107,6 +107,7 @@ dependencies {
 //    implementation (libs.numberpicker)
 
     implementation(libs.easycrop)
+    implementation(libs.itext7.core)
 
     //implementation (libs.androidx.lifecycle.viewmodel.compose)
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,7 +55,10 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.TempleHindu
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Work
+import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Phone
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
@@ -75,10 +79,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -101,6 +107,7 @@ import com.example.banjaraworld.ui.theme.Purple40
 import com.example.banjaraworld.ui.theme.darkGreen
 import com.example.banjaraworld.ui.theme.onPrimary
 import com.example.banjaraworld.ui.theme.onSecondary
+import generateProfilePdf
 import kotlinx.coroutines.launch
 import kotlin.text.Typography.amp
 
@@ -186,7 +193,8 @@ fun MarriageDetailScreen(modifier: Modifier = Modifier, isProfile: Boolean) {
             }
 
         }
-        ConnectNow(modifier.align(Alignment.BottomCenter))
+
+        ConnectNow(modifier.align(Alignment.BottomCenter), isProfile)
 
 
     }
@@ -260,7 +268,7 @@ fun HobbiesAndInterests(modifier: Modifier = Modifier, isProfile: Boolean) {
 }
 
 @Composable
-fun ConnectNow(modifier: Modifier) {
+fun ConnectNow(modifier: Modifier, isProfile: Boolean) {
     val context = LocalContext.current
     var onCallClick by remember {
         mutableStateOf(false)
@@ -275,6 +283,69 @@ fun ConnectNow(modifier: Modifier) {
         UpgradeToPremium(text = "Swap", onDismiss = { onCallClick = false })
 
     }
+    if (!isProfile) {
+        Card(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(100.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
+        ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(imageVector = Icons.Default.Phone,
+                        contentDescription = null,
+                        tint = onSecondary,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable {
+                                onCallClick = true
+                            }
+                            .border(
+                                1.dp, Color.Gray, RoundedCornerShape(4.dp)
+                            )
+                            .padding(BwDimensions.PADDING_4))
+                    Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                    Icon(imageVector = if (onFavClick) Icons.Filled.Favorite else Icons.Default.FavoriteBorder,
+                        contentDescription = null,
+                        tint = if (onFavClick) Color.Red else onSecondary,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable {
+                                onFavClick = !onFavClick
+                            }
+                            .border(
+                                1.dp, Color.Gray, RoundedCornerShape(4.dp)
+                            )
+                            .padding(BwDimensions.PADDING_4))
+                    Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
+                    Icon(imageVector = Icons.Default.Share,
+                        contentDescription = null,
+                        tint = onSecondary,
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable {
+                                shareContent(
+                                    context,
+                                    title = "Share",
+                                    text = "Please check this Profile I found over banjaraworld"
+                                )
+                                onShareClick = !onShareClick
+                            }
+                            .border(
+                                1.dp, Color.Gray, RoundedCornerShape(4.dp)
+                            )
+                            .padding(BwDimensions.PADDING_4))
+                }
+
+
+            }
+        }
+    }
     Card(
         modifier = modifier
             .fillMaxWidth()
@@ -282,58 +353,95 @@ fun ConnectNow(modifier: Modifier) {
         colors = CardDefaults.cardColors(containerColor = Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
     ) {
+
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Icon(imageVector = Icons.Default.Phone,
-                    contentDescription = null,
-                    tint = onSecondary,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            onCallClick = true
-                        }
-                        .border(
-                            1.dp, Color.Gray, RoundedCornerShape(4.dp)
-                        )
-                        .padding(BwDimensions.PADDING_4))
-                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-                Icon(imageVector = if (onFavClick) Icons.Filled.Favorite else Icons.Default.FavoriteBorder,
-                    contentDescription = null,
-                    tint = if (onFavClick) Color.Red else onSecondary,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            onFavClick = !onFavClick
-                        }
-                        .border(
-                            1.dp, Color.Gray, RoundedCornerShape(4.dp)
-                        )
-                        .padding(BwDimensions.PADDING_4))
-                Spacer(modifier = Modifier.padding(BwDimensions.PADDING_8))
-                Icon(imageVector = Icons.Default.Share,
-                    contentDescription = null,
-                    tint = onSecondary,
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clickable {
-                            shareContent(
-                                context,
-                                title = "Share",
-                                text = "Please check this Profile I found over banjaraworld"
+
+                androidx.compose.material.Card(
+                    shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS), elevation = 0.dp
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                Brush.horizontalGradient(
+                                    colors = listOf(onPrimary.copy(alpha = 0.1f), Color.Transparent)
+                                )
                             )
-                            onShareClick = !onShareClick
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .clickable(onClick = {
+                                    generateProfilePdf(context)
+                                },
+                                    indication = null,
+                                    interactionSource = remember {
+                                        MutableInteractionSource()
+                                    })
+                                .padding(BwDimensions.PADDING_2),
+                            horizontalArrangement = Arrangement.spacedBy(BwDimensions.PADDING_4)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Download,
+                                contentDescription = "download bio",
+                                tint = onPrimary,
+                                modifier = Modifier.size(30.dp)
+                            )
+                            CommonText(
+                                text = "Download",
+                                fontSize = BwDimensions.FONT_14,
+                                color = onPrimary,
+                                fontWeight = FontWeight.SemiBold
+                            )
                         }
-                        .border(
-                            1.dp, Color.Gray, RoundedCornerShape(4.dp)
-                        )
-                        .padding(BwDimensions.PADDING_4))
+                    }
+                }
+
+                androidx.compose.material.Card(
+                    shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS), elevation = 0.dp
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                Brush.horizontalGradient(
+                                    colors = listOf(
+                                        Color.Transparent,
+                                        onPrimary.copy(alpha = 0.1f),
+                                    )
+                                )
+                            )
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .clickable(onClick = { },
+                                    indication = null,
+                                    interactionSource = remember {
+                                        MutableInteractionSource()
+                                    })
+                                .padding(BwDimensions.PADDING_2),
+                            horizontalArrangement = Arrangement.spacedBy(BwDimensions.PADDING_4)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Outlined.Share,
+                                contentDescription = "share",
+                                tint = onPrimary,
+                                modifier = Modifier.size(30.dp)
+                            )
+                            CommonText(
+                                text = "Share",
+                                fontSize = BwDimensions.FONT_14,
+                                color = onPrimary,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+                }
             }
-
-
         }
     }
 }
