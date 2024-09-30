@@ -34,6 +34,20 @@ class MarriageFirstScreenViewmodel @Inject constructor(
     private val validationEventChannel = Channel<ValidationEvent>()
     val validationEvents = validationEventChannel.receiveAsFlow()
 
+    // Define static lists
+
+    val listProfileCreatedFor = listOf("Son", "Daughter", "Sister", "Brother", "Friend", "Myself")
+    val listDietPreferences =
+        listOf("Vegetarian", "Non-Vegetarian", "Vegan", "Occasional Non-Vegetarian")
+
+    // Handle birthTime, birthDate, and chip click states
+    init {
+        state = state.copy(
+            birthTime = "select time",
+            birthDate = "select date",
+        )
+    }
+
 
     fun onEvent(event: MarriageFirstScreenEvent) {
         when (event) {
@@ -57,11 +71,21 @@ class MarriageFirstScreenViewmodel @Inject constructor(
                 state = state.copy(isDietPreferenceSelected = event.dietPreference)
             }
 
-            is MarriageFirstScreenEvent.BirthDateChanged -> {
-                state = state.copy(isBirthDateSelected = event.birthDate)
+            is MarriageFirstScreenEvent.ToggleDateChipClick -> {
+                state = state.copy(dateChipClick = !state.dateChipClick)
             }
 
-            is MarriageFirstScreenEvent.BirthTimeChanged -> TODO()
+            is MarriageFirstScreenEvent.ToggleTimeChipClick -> {
+                state = state.copy(timeChipClick = !state.timeChipClick)
+            }
+            is MarriageFirstScreenEvent.BirthDateChanged -> {
+                state = state.copy(
+                    birthDate = event.birthDate,
+                )
+            }
+            is MarriageFirstScreenEvent.BirthTimeChanged -> {
+                state = state.copy(birthTime = event.birthTime, timeChipClick = false)
+            }
         }
     }
 
@@ -73,7 +97,8 @@ class MarriageFirstScreenViewmodel @Inject constructor(
             validateIsProfileCreatedForUseCase.invoke(state.isProfileCreatedForSelected)
         val dietPreferenceResult =
             validateIsDietPreferencesSelectedUseCase.invoke(state.isDietPreferenceSelected)
-        val birthDateResult = validateIsDateSelectedUseCase.invoke(state.isBirthDateSelected)
+        val birthDateResult = validateIsDateSelectedUseCase.invoke(state.birthDate)
+
         val hasError = listOf(
             genderResult,
             marriageStatusResult,

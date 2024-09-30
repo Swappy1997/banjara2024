@@ -9,8 +9,10 @@ data class MarriageFirstScreenState(
     val isProfileCreatedForSelected: String = "",
     val isDietPreferenceSelected: String = "",
     val isDietPreferenceSelectedError: String? = null,
-    val isBirthTimeSelected: String = "",
     val isBirthTimeSelectedError: String? = null,
-    val isBirthDateSelected: String = "",
-    val isBirthDateSelectedError: String? = null
+    val isBirthDateSelectedError: String? = null,
+    var birthTime: String = "select time",
+    var birthDate: String = "select date",
+    var timeChipClick: Boolean = false,
+    var dateChipClick: Boolean = false,
 )

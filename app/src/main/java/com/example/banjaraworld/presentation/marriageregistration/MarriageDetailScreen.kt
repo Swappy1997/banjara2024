@@ -345,99 +345,106 @@ fun ConnectNow(modifier: Modifier, isProfile: Boolean) {
 
             }
         }
-    }
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(100.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
-        elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
-    ) {
+    } else {
 
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
+        Card(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(100.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            elevation = CardDefaults.cardElevation(defaultElevation = BwDimensions.ELEVATION_HEIGHT)
+        ) {
 
-                androidx.compose.material.Card(
-                    shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS), elevation = 0.dp
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .background(
-                                Brush.horizontalGradient(
-                                    colors = listOf(onPrimary.copy(alpha = 0.1f), Color.Transparent)
-                                )
-                            )
+
+                    androidx.compose.material.Card(
+                        shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
+                        elevation = 0.dp
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
+                        Box(
                             modifier = Modifier
-                                .clickable(onClick = {
-                                    generateProfilePdf(context)
-                                },
-                                    indication = null,
-                                    interactionSource = remember {
-                                        MutableInteractionSource()
-                                    })
-                                .padding(BwDimensions.PADDING_2),
-                            horizontalArrangement = Arrangement.spacedBy(BwDimensions.PADDING_4)
-                        ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Download,
-                                contentDescription = "download bio",
-                                tint = onPrimary,
-                                modifier = Modifier.size(30.dp)
-                            )
-                            CommonText(
-                                text = "Download",
-                                fontSize = BwDimensions.FONT_14,
-                                color = onPrimary,
-                                fontWeight = FontWeight.SemiBold
-                            )
-                        }
-                    }
-                }
-
-                androidx.compose.material.Card(
-                    shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS), elevation = 0.dp
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(
-                                Brush.horizontalGradient(
-                                    colors = listOf(
-                                        Color.Transparent,
-                                        onPrimary.copy(alpha = 0.1f),
+                                .background(
+                                    Brush.horizontalGradient(
+                                        colors = listOf(
+                                            onPrimary.copy(alpha = 0.1f),
+                                            Color.Transparent
+                                        )
                                     )
                                 )
-                            )
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .clickable(onClick = { },
-                                    indication = null,
-                                    interactionSource = remember {
-                                        MutableInteractionSource()
-                                    })
-                                .padding(BwDimensions.PADDING_2),
-                            horizontalArrangement = Arrangement.spacedBy(BwDimensions.PADDING_4)
                         ) {
-                            Icon(
-                                imageVector = Icons.Outlined.Share,
-                                contentDescription = "share",
-                                tint = onPrimary,
-                                modifier = Modifier.size(30.dp)
-                            )
-                            CommonText(
-                                text = "Share",
-                                fontSize = BwDimensions.FONT_14,
-                                color = onPrimary,
-                                fontWeight = FontWeight.SemiBold
-                            )
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .clickable(onClick = {
+                                        generateProfilePdf(context)
+                                    },
+                                        indication = null,
+                                        interactionSource = remember {
+                                            MutableInteractionSource()
+                                        })
+                                    .padding(BwDimensions.PADDING_2),
+                                horizontalArrangement = Arrangement.spacedBy(BwDimensions.PADDING_4)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Download,
+                                    contentDescription = "download bio",
+                                    tint = onPrimary,
+                                    modifier = Modifier.size(30.dp)
+                                )
+                                CommonText(
+                                    text = "Download",
+                                    fontSize = BwDimensions.FONT_14,
+                                    color = onPrimary,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
+                        }
+                    }
+
+                    androidx.compose.material.Card(
+                        shape = RoundedCornerShape(BwDimensions.ROUND_CORNER_RADIUS),
+                        elevation = 0.dp
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    Brush.horizontalGradient(
+                                        colors = listOf(
+                                            Color.Transparent,
+                                            onPrimary.copy(alpha = 0.1f),
+                                        )
+                                    )
+                                )
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .clickable(onClick = { },
+                                        indication = null,
+                                        interactionSource = remember {
+                                            MutableInteractionSource()
+                                        })
+                                    .padding(BwDimensions.PADDING_2),
+                                horizontalArrangement = Arrangement.spacedBy(BwDimensions.PADDING_4)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.Share,
+                                    contentDescription = "share",
+                                    tint = onPrimary,
+                                    modifier = Modifier.size(30.dp)
+                                )
+                                CommonText(
+                                    text = "Share",
+                                    fontSize = BwDimensions.FONT_14,
+                                    color = onPrimary,
+                                    fontWeight = FontWeight.SemiBold
+                                )
+                            }
                         }
                     }
                 }

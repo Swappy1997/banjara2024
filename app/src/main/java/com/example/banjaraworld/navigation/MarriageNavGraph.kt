@@ -1,6 +1,8 @@
 package com.example.banjaraworld.navigation
 
 import MarriageHomeScreen
+import MarriageRegistrationFamilyDetail
+import MarriageUploadPhotoScreen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.navigation.NavGraphBuilder
@@ -13,10 +15,8 @@ import com.example.banjaraworld.presentation.commonwidgets.MarriageSheet
 import com.example.banjaraworld.presentation.marriageregistration.MarriageDetailScreen
 import com.example.banjaraworld.presentation.marriageregistration.fifthscreenmarraige.MarriageOccupationAndEducationScreen
 import com.example.banjaraworld.presentation.marriageregistration.firstscreenmarriage.MarriageRegistrationGenderScreen
-import com.example.banjaraworld.presentation.marriageregistration.fourthscreenmarriage.MarriageUploadPhotoScreen
 import com.example.banjaraworld.presentation.marriageregistration.secondscreenmarriage.MarriageRegistrationUserNameScreen
 import com.example.banjaraworld.presentation.marriageregistration.seventh.MarriageHeightScreen
-import com.example.banjaraworld.presentation.marriageregistration.sixthmarriagescreen.UserBirthDateAndTime
 import com.example.banjaraworld.presentation.marriageregistration.thirdscreenmarriage.MarriageStateAndCityScreen
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -43,7 +43,7 @@ fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
             })
         }
         composable(MarriageScreen.M_R_Third_Screen.route) {
-            UserBirthDateAndTime(onContiueClick = {
+            MarriageRegistrationFamilyDetail(onContinueClick = {
                 navController.navigate(MarriageScreen.M_R_Fourth_Screen.route)
             })
         }

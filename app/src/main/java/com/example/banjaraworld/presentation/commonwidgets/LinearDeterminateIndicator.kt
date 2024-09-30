@@ -26,14 +26,12 @@ fun LinearDeterminateIndicator(progressValue: Float) {
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Icon(Icons.Filled.ArrowBack, contentDescription = null, modifier = Modifier.weight(0.1f))
 
         LinearProgressIndicator(
             progress = { progressValue },
             modifier = Modifier
-                .height(8.dp)
-                .wrapContentWidth()
-                .weight(0.8f),
+                .fillMaxWidth()
+                .height(4.dp),
             trackColor = onSecondary,
             strokeCap = StrokeCap.Round,
         )

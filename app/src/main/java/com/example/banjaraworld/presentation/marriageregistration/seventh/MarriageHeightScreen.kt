@@ -31,10 +31,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
+import com.example.banjaraworld.common.utils.Utils.formatText
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
+import com.example.banjaraworld.ui.theme.PoppinsFont
 import com.example.banjaraworld.ui.theme.onPrimary
 
 @RequiresApi(Build.VERSION_CODES.Q)
@@ -74,15 +76,17 @@ fun MarriageHeightScreen(
                     LinearDeterminateIndicator(progressValue = 0.4f)
                 }
                 item {
-                    CommonText(
-                        text = "What is your height",
-                        fontSize = BwDimensions.TITTLE_FONT_SIZE,
-                        color = Color.Black,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier
+
+                    Text(
+                        text = formatText(
+                            prefix = "What is your\n ",
+                            discountColor = onPrimary,
+                            formattedText = "height ?",
+                        ), fontSize = BwDimensions.FONT_23, fontFamily = PoppinsFont
                     )
 
                 }
+
             }
             Column(
                 modifier

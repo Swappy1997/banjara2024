@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -35,7 +36,7 @@ fun CommonOutlineTextField(
     onValueChange: (String) -> Unit = {},
     prefixName: String? = "",
     keyboardActions: () -> Unit = {},
-    readOnly:Boolean=false
+    readOnly: Boolean = false
 ) {
     Card(
         modifier = modifier
@@ -47,7 +48,9 @@ fun CommonOutlineTextField(
         TextField(
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
-                imeAction = imeAction
+                imeAction = imeAction,
+                capitalization = KeyboardCapitalization.Sentences,  // Capitalize the first letter
+
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
@@ -62,7 +65,7 @@ fun CommonOutlineTextField(
             onValueChange = {
                 onValueChange(it) // Pass the value to the provided lambda
             },
-            readOnly =readOnly ,
+            readOnly = readOnly,
 
             placeholder = {
                 Text(

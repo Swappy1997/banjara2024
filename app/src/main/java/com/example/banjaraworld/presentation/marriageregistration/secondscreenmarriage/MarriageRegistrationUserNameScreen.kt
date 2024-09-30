@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,10 +28,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
+import com.example.banjaraworld.common.utils.Utils.formatText
+import com.example.banjaraworld.presentation.ErrorText
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonOutlineTextField
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
 import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndicator
+import com.example.banjaraworld.ui.theme.PoppinsFont
+import com.example.banjaraworld.ui.theme.onPrimary
 
 @Composable
 fun MarriageRegistrationUserNameScreen(
@@ -68,6 +73,15 @@ fun MarriageRegistrationUserNameScreen(
                 LinearDeterminateIndicator(0.2f)
             }
             item {
+                Text(
+                    text = formatText(
+                        prefix = "What's your \n ",
+                        discountColor = onPrimary,
+                        formattedText = "name??",
+                    ), fontSize = BwDimensions.FONT_23, fontFamily = PoppinsFont
+                )
+            }
+            item {
                 CommonText(
                     stringResource(R.string.whats_your_name),
                     fontSize = BwDimensions.TITTLE_FONT_SIZE,
@@ -80,7 +94,8 @@ fun MarriageRegistrationUserNameScreen(
                     fontSize = BwDimensions.TITTLE_FONT_SIZE,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+
                 )
             }
             item {
@@ -96,22 +111,7 @@ fun MarriageRegistrationUserNameScreen(
                     value = state.firstName,
                     imeAction = ImeAction.Done
                 )
-                AnimatedVisibility(visible = state.firstNameError != null) {
-                    state.firstNameError?.let {
-
-                        CommonText(
-                            text = it,
-                            fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                            fontWeight = FontWeight.Light,
-                            textAlign = TextAlign.Start,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = BwDimensions.PADDING_10)
-                        )
-
-                    }
-                }
+                ErrorText(errorMessage = state.firstNameError)
             }
             item {
                 CommonOutlineTextField(
@@ -126,22 +126,7 @@ fun MarriageRegistrationUserNameScreen(
                     value = state.middleName,
                     imeAction = ImeAction.Done
                 )
-                AnimatedVisibility(visible = state.middleNameError != null) {
-                    state.middleNameError?.let {
-
-                        CommonText(
-                            text = it,
-                            fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                            fontWeight = FontWeight.Light,
-                            textAlign = TextAlign.Start,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = BwDimensions.PADDING_10)
-                        )
-
-                    }
-                }
+                ErrorText(errorMessage = state.middleNameError)
             }
             item {
                 CommonOutlineTextField(
@@ -156,23 +141,8 @@ fun MarriageRegistrationUserNameScreen(
                     value = state.lastName,
                     imeAction = ImeAction.Done
                 )
+                ErrorText(errorMessage = state.lastNameError)
 
-                AnimatedVisibility(visible = state.lastNameError != null) {
-                    state.lastNameError?.let {
-
-                        CommonText(
-                            text = it,
-                            fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                            fontWeight = FontWeight.Light,
-                            textAlign = TextAlign.Start,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = BwDimensions.PADDING_10)
-                        )
-
-                    }
-                }
             }
             item {
                 CommonOutlineTextField(
@@ -187,28 +157,17 @@ fun MarriageRegistrationUserNameScreen(
                     value = state.motherName,
                     imeAction = ImeAction.Done
                 )
-                AnimatedVisibility(visible = state.motherNameError != null) {
-                    state.motherNameError?.let {
-
-                        CommonText(
-                            text = it,
-                            fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                            fontWeight = FontWeight.Light,
-                            textAlign = TextAlign.Start,
-                            color = MaterialTheme.colorScheme.error,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(start = BwDimensions.PADDING_10)
-                        )
-
-                    }
-                }
+                ErrorText(errorMessage = state.motherNameError)
 
             }
             item {
-                Spacer(modifier = Modifier.padding(bottom = BwDimensions.SPACING_30))
+                Spacer(modifier = Modifier.padding(top = BwDimensions.SPACING_50))
+
             }
+
         }
+
+        Spacer(modifier = Modifier.padding(top = BwDimensions.SPACING_50))
 
         CommonButton(
             stringResource(R.string.continues),

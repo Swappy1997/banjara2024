@@ -57,12 +57,13 @@ object Utils {
         discountColor: Color = darkGreen,
         discountWeight: FontWeight = FontWeight.Bold
     ) = buildAnnotatedString {
+
         append(prefix)
         withStyle(
             style = SpanStyle(
                 color = discountColor,
                 fontWeight = discountWeight,
-                fontSize = BwDimensions.FONT_20
+                fontSize = BwDimensions.FONT_23
             )
         ) {
             append(formattedText)

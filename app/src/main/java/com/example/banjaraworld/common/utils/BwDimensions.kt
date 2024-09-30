@@ -38,6 +38,7 @@ object BwDimensions {
     val SPACING_20 = 20.dp
     val SPACING_25 = 25.dp
     val SPACING_30 = 30.dp
+    val SPACING_50 = 30.dp
     val SPACING_8 = 8.dp
     val SPACING_5 = 5.dp
     val FONT_18 = 18.sp

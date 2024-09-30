@@ -7,5 +7,7 @@ sealed class MarriageFirstScreenEvent {
     data class MarriageDietPreference(val dietPreference: String) : MarriageFirstScreenEvent()
     data class BirthDateChanged(val birthDate: String) : MarriageFirstScreenEvent()
     data class BirthTimeChanged(val birthTime: String) : MarriageFirstScreenEvent()
+    object ToggleDateChipClick : MarriageFirstScreenEvent()
+    object ToggleTimeChipClick : MarriageFirstScreenEvent()
     object Continue : MarriageFirstScreenEvent()
 }

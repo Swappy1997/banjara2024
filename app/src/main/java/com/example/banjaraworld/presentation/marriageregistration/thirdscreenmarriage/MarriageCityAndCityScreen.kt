@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.banjaraworld.R
 import com.example.banjaraworld.common.utils.BwDimensions
+import com.example.banjaraworld.common.utils.Utils.formatText
 import com.example.banjaraworld.presentation.commonwidgets.CommonButton
 import com.example.banjaraworld.presentation.commonwidgets.CommonOutlineTextField
 import com.example.banjaraworld.presentation.commonwidgets.CommonText
@@ -36,6 +38,8 @@ import com.example.banjaraworld.presentation.commonwidgets.LinearDeterminateIndi
 import com.example.banjaraworld.presentation.marriageregistration.MarriageRegistrationViewmodel
 import com.example.banjaraworld.presentation.marriageregistration.secondscreenmarriage.MarriageSecondScreenEvent
 import com.example.banjaraworld.ui.theme.BanjaraWorldTheme
+import com.example.banjaraworld.ui.theme.PoppinsFont
+import com.example.banjaraworld.ui.theme.onPrimary
 
 @Composable
 fun MarriageStateAndCityScreen(
@@ -79,11 +83,12 @@ fun MarriageStateAndCityScreen(
                     LinearDeterminateIndicator(progressValue = 0.5f)
                 }
                 item {
-                    CommonText(
-                        text = "Contact Details",
-                        fontSize = BwDimensions.FONT_17,
-                        color = Color.Black,
-                        fontWeight = FontWeight.SemiBold, modifier = Modifier.fillMaxWidth(),
+                    Text(
+                        text = formatText(
+                            prefix = "Contact\n ",
+                            discountColor = onPrimary,
+                            formattedText = "Details ?",
+                        ), fontSize = BwDimensions.FONT_23, fontFamily = PoppinsFont
                     )
                 }
                 item {
@@ -97,7 +102,7 @@ fun MarriageStateAndCityScreen(
 
                     CommonOutlineTextField(
                         dummyText = stringResource(R.string.enter_mobile),
-                        keyboardType = KeyboardType.Text,
+                        keyboardType = KeyboardType.Phone,
                         modifier = Modifier,
                         onValueChange = {
                         },
@@ -131,7 +136,7 @@ fun MarriageStateAndCityScreen(
                     )
                     CommonOutlineTextField(
                         dummyText = stringResource(R.string.enter_email_id),
-                        keyboardType = KeyboardType.Text,
+                        keyboardType = KeyboardType.Email,
                         modifier = Modifier,
                         onValueChange = {
 //                            marriageSecondScreenViewModel.onEvent(
