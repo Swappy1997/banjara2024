@@ -98,7 +98,6 @@ fun NavGraphBuilder.marriageNavGraph(navController: NavHostController) {
 }
 
 sealed class MarriageScreen(val route: String) {
-
     object Marriage : MarriageScreen("marriage_screen")
     object M_R_First_Screen : MarriageScreen("m_r_gender_screen")
     object M_R_Second_Screen : MarriageScreen("m_r_screen")

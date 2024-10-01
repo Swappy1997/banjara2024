@@ -41,13 +41,7 @@ fun MarriageOccupationAndEducationScreen(
     modifier: Modifier = Modifier,
     onContinueClick: () -> Unit
 ) {
-    val motherOccupationList = listOf(
-        "House wife", "Business", "Retired", "Gov employee", "working in private sector"
-    )
 
-    val fatherOccupationList = listOf(
-        "Business", "not working", "Retired", "Gov employee", "working in private sector"
-    )
     val highestEducationList =
         listOf("Graduate", "Post Graduate", "Diploma", "Under Graduate", "Ssc", "HSC", "Other")
 
@@ -151,76 +145,7 @@ fun MarriageOccupationAndEducationScreen(
                     }
                 }
             }
-            item {
-                CommonText(
-                    text = "what is your father occupation?",
-                    fontSize = BwDimensions.TITTLE_FONT_SIZE,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                )
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.Center
-                ) {
 
-                    fatherOccupationList.forEach {
-                        SuggestionChip(
-                            onClick = {
-
-                            },
-                            label = {
-                                CommonText(
-                                    text = it,
-                                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Medium,
-                                    modifier = Modifier
-                                )
-                            },
-                            colors = AssistChipDefaults.assistChipColors(containerColor = Color.White),
-                            border = null,
-                            elevation = AssistChipDefaults.assistChipElevation(elevation = BwDimensions.ELEVATION_HEIGHT)
-                        )
-                    }
-                }
-            }
-            item {
-                CommonText(
-                    text = "what is your mother Occupation ?",
-                    fontSize = BwDimensions.TITTLE_FONT_SIZE,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                )
-
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalArrangement = Arrangement.Center
-                ) {
-
-                    motherOccupationList.forEach {
-                        SuggestionChip(
-                            onClick = {
-                            },
-                            label = {
-                                CommonText(
-                                    text = it,
-                                    fontSize = BwDimensions.SUB_TITTLE_FONT_SIZE,
-                                    color = Color.Black,
-                                    fontWeight = FontWeight.Medium,
-                                    modifier = Modifier
-                                )
-                            },
-                            colors = AssistChipDefaults.assistChipColors(containerColor = Color.White),
-                            border = null,
-                            elevation = AssistChipDefaults.assistChipElevation(elevation = BwDimensions.ELEVATION_HEIGHT)
-                        )
-                    }
-                }
-            }
         }
         CommonButton(text = stringResource(id = R.string.continues), onClick = {
             onContinueClick.invoke()
